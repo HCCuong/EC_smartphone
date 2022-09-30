@@ -1,4 +1,4 @@
-# Fashion-shoe
+# EC_smartphone
 Thành viên: 
  - Huỳnh Chí	Cường - 3119410054
  - Minh Hiếu Calan Tog - 3119410439
