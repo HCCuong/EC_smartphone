@@ -4,16 +4,14 @@
     <div class="card-header">
         <h3 class="card-title">{{$title}}</h3>
     </div>
-    <table class="table">
+    <div class="card-body">
+    <table id="example1" class="table table-bordered table-striped">
         <thead>
         <tr>
             <th>ID</th>
             <th>Customer</th>
             <th>Quanty</th>
             <th>Total</th>
-            <th>Phone</th>
-            <th>Address</th>
-            <th>Type</th>
             <th>Status</th>
             <th>Update</th>
             <th>Detail</th>
@@ -27,9 +25,6 @@
                 <td>{{$order->user->name}}</td>
                 <td>{{$order->qty}}</td>
                 <td>{{$order->total}}</td>
-                <td>{{$order->phone}}</td>
-                <td>{{$order->address}}</td>
-                <td>{{$order->type}}</td>
                 <td>{!! \App\Helpers\Helper::active($order->status) !!}</td>
                 <td>{{$order->updated_at}}</td>
                 <td>
@@ -42,5 +37,6 @@
         @endforeach
         </tbody>
     </table>
-    {{ $orders->links() }}s
+    </div>
+    <!--{{ $orders->links() }}-->
 @endsection

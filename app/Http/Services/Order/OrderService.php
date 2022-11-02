@@ -11,8 +11,13 @@ class OrderService
 {
     public function getAll()
     {
-        return Order::with('user')->orderbyDesc('id', 0)->paginate(15);
+        return Order::with('user')->orderbyDesc('id', 0)->paginate(100);
         //return Order::orderbyDesc('id', '>', 100)->cursorPaginate(10);
+    }
+
+    public function getById($request)
+    {
+        return Order::with('user')->where('id', $request)->get();
     }
 
     protected function isValidPrice($request){

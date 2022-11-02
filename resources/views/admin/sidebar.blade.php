@@ -106,13 +106,19 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="order_list" class="nav-link">
+                            <a href="order_list_new" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Danh sách đơn hàng</p>
+                                <p>Đơn hàng mới</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="order_cancel" class="nav-link">
+                            <a href="order_list" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Đơn hàng đã giao</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="order_list_cancel" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Đơn hàng bị hủy</p>
                             </a>

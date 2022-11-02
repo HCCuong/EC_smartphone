@@ -1,22 +1,11 @@
 @extends('admin.main')
 
 @section('content')
-    <div>
-        <form class="form-inline">
-            <div class="input-group input-group-sm">
-                <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-                <div class="input-group-append">
-                    <button class="btn btn-navbar" type="submit">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
-            </div>
-        </form>
-    </div>
     <div class="card-header">
         <h3 class="card-title">{{$title}}</h3>
     </div>
-    <table class="table">
+    <div class="card-body">
+    <table id="example1" class="table table-bordered table-striped">
         <thead>
         <tr>
             <th>ID</th>
@@ -48,5 +37,6 @@
         @endforeach
         </tbody>
     </table>
-    {{ $users->links() }}
+    </div>
+    <!--{{ $users->links() }}-->
 @endsection

@@ -85,9 +85,9 @@ class ProductService
                 'pro_id' => (int) $id
             ]);
 
-            Session::flash('success', 'Tạo sản phẩm thành công');
+            Session::flash('success', 'Thêm sản phẩm thành công');
         } catch (\Exception $err){
-            Session::flash('error', 'Thêm sản phẩm lỗi !');
+            Session::flash('error', 'Thêm sản phẩm không thành công !!!');
             \Log::info($err->getMessage());
             return false;
         }

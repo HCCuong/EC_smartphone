@@ -10,7 +10,7 @@ class UserService
 
     public function get()
     {
-        return User::orderbyDesc('id', '>', 100)->cursorPaginate(15);
+        return User::orderbyDesc('id', '>', 100)->cursorPaginate(100);
     }
 
     public function insert($request){

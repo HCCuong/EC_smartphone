@@ -30,6 +30,7 @@ Route::get('/cart', function () {
         Route::prefix('admin')->group(function (){
             Route::get('main', [MainController::class, 'index'])->name('admin');
             Route::get('home',[AdminController::class, 'index']);
+            Route::get('dashboard',[AdminController::class, 'index']);
 
             #Category
             Route::get('cate_add',[CategoryProduct::class, 'create']);
@@ -56,7 +57,8 @@ Route::get('/cart', function () {
             #Order
             Route::get('order_list',[OrderController::class, 'index']);
             /*Route::post('/admin/save_product',[ProductController::class, 'save_category']);*/
-            Route::get('order_cancel',[OrderController::class, 'index']);
+            Route::get('order_list_cancel',[OrderController::class, 'get_list_cancel']);
+            Route::get('order_list_new',[OrderController::class, 'get_list_new']);
             Route::get('order_detail/{order}',[OrderController::class, 'show']);
 
             #User

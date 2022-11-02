@@ -4,7 +4,8 @@
     <div class="card-header">
         <h3 class="card-title">{{$title}}</h3>
     </div>
-    <table class="table">
+    <div class="card-body">
+    <table id="example1" class="table table-bordered table-striped">
         <thead>
             <tr>
                 <th>ID</th>
@@ -19,5 +20,6 @@
             {!! \App\Helpers\Helper::category($categories) !!}
         </tbody>
     </table>
-    {{ $categories->links() }}
+    </div>
+    <!--{{ $categories->links() }}-->
 @endsection

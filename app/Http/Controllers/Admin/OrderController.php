@@ -36,6 +36,25 @@ class OrderController extends Controller
         ]);
     }
 
+    public function get_list_new()
+    {
+        return view('admin.order_list', [
+            
+            'title'=>'Danh sách đơn hàng mới',
+            'orders'=>$this->orderService->getAll(),
+            'ur'=>''
+        ]);
+    }
+
+    public function get_list_cancel()
+    {
+        return view('admin.order_list', [
+            'title'=>'Danh sách đơn hàng đã hủy',
+            'orders'=>$this->orderService->getAll(),
+            'ur'=>''
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -64,6 +83,7 @@ class OrderController extends Controller
     {
         return view('admin.order_detail', [
             'title'=>'Chi tiết hóa đơn:  ' . $order->id,
+            'order'=>$order,
             'order_details'=>$this->orderDetailService->get($order->id),
             'ur'=>'../'
         ]);

@@ -4,6 +4,20 @@
     <div class="card-header">
         <h3 class="card-title">{{$title}}</h3>
     </div>
+    <div class="card-body">
+
+    <div>
+        <p>Tên khách hàng: {{$order->user->name}}</p>
+        <p>Số loại sản phẩm: {{$order->qty}}</p>
+        <p>Thành tiền: {{$order->total}}</p>
+        <p>Phương thức thanh toán: {{$order->type}}</p>
+        <p>Ghi chú: {{$order->note}}</p>
+        <p>Số điện thoại: {{$order->phone}}</p>
+        <p>Địa chỉ: {{$order->address}}</p>
+        <p>Ngày lập: {{$order->created_at}}</p>
+    </div>
+    <div>
+        <p class="bold"> Danh sách sản phẩm</p>
     <table class="table">
         <thead>
         <tr>
@@ -30,4 +44,6 @@
         @endforeach
         </tbody>
     </table>
+    </div>
+    </div>
 @endsection

@@ -10,14 +10,14 @@
         <thead>
         <tr>
             <th>ID</th>
-            <th>Name</th>
-            <th>Category</th>
-            <th>Price</th>
-            <th>Price sale</th>
-            <th>Active</th>
-            <th>Update</th>
-            <th style="width:20px;"></th>
-            <th style="width:20px;"></th>
+            <th>Tên sản phẩm</th>
+            <th>Loại sản phẩm</th>
+            <th>Giá</th>
+            <th>Tình trạng</th>
+            <th>Ngày cập nhật</th>
+            <th>Chi tiết</th>
+            <th style="width:20px;">Sửa</th>
+            <th style="width:20px;">Xóa</th>
         </tr>
         </thead>
         <tbody>
@@ -27,9 +27,11 @@
                 <td>{{$product->name}}</td>
                 <td>{{$product->category->name}}</td>
                 <td>{{$product->price}}</td>
-                <td>{{$product->price_sale}}</td>
                 <td>{!! \App\Helpers\Helper::active($product->active) !!}</td>
                 <td>{{$product->updated_at}}</td>
+                <td>
+                    <a class="btn btn-primary btn-sm" href="product_detail/{{ $product->id }}">Xem chi tiết</a>
+                </td>
                 <td>
                     <a class="btn btn-primary btn-sm" href="product_edit/{{ $product->id }}"><i class="fa fa-edit"></i></a>
                 </td>
