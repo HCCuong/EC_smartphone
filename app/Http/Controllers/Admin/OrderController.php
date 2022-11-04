@@ -140,35 +140,59 @@ class OrderController extends Controller
 
 
     public function getOrderDetails($orderid = 0){
-        $order = Order::with('user')->where('id', $orderid)->get();
+        $order = Order::find($orderid);
+        //$orderdetails = OrderDetail::find($orderid);
         $orderdetails = $this->orderDetailService->get($orderid);
-        $html = "<tr>
-                <td width='30%'><b>ID:</b></td>
-                <td width='70%'></td>
-             </tr>
-             ";
-        //if(!empty($order)){
-        //   $html = "<tr>
-        //        <td width='30%'><b>ID:</b></td>
-        //        <td width='70%'> ".$order->id."</td>
-        //     </tr>
-        //     <tr>
-        //        <td width='30%'><b>Username:</b></td>
-        //        <td width='70%'> ".$order->user->name."</td>
-        //     </tr>
-        //     <tr>
-        //        <td width='30%'><b>Phone:</b></td>
-        //        <td width='70%'> ".$order->phone."</td>
-        //     </tr>
-        //     <tr>
-        //        <td width='30%'><b>Address:</b></td>
-        //        <td width='70%'> ".$order->address."</td>
-        //     </tr>
-        //     <tr>
-        //        <td width='30%'><b>Total:</b></td>
-        //        <td width='70%'> ".$order->total."</td>
-        //    </tr>";
-        //}
+        $html = "";
+        if(!empty($orderdetails)){
+            $html .= "
+                <tr>
+                    <td width='40%'><b>Tên khách hàng: </b></td>
+                    <td width='60%'>".$order->user->name."</td>
+                </tr>
+                <tr>
+                    <td width='40%'><b>Số loại sản phẩm: </b></td>
+                    <td width='60%'>".$order->qty."</td>
+                </tr>
+                <tr>
+                    <td width='40%'><b>Thành tiền: </b></td>
+                    <td width='60%'>".$order->total. " đ</p>
+                </tr>
+                <tr>
+                    <td width='40%'><b>Thanh toán: </b></td>
+                    <td width='60%'>".$order->type."</td>
+                </tr>
+                <tr>
+                    <td width='40%'><b>Ghi chú: </b></td>
+                    <td width='60%'>".$order->note."</td>
+                </tr>
+                <tr>
+                    <td width='40%'><b>SDT: </b></td>
+                    <td width='60%'>".$order->phone."</td>
+                </tr>
+                <tr>
+                    <td width='40%'><b>Địa chỉ: </b></td>
+                    <td width='60%'>".$order->address."</td>
+                </tr>
+                <tr>
+                    <td width='40%'><b>Ngày lập: </b></td>
+                    <td width='60%'>".$order->created_at."</td>
+                </tr>
+                <tr>
+                    <td width='20%'><b>Sản phẩm</b></td>
+                    <td width='20%'><b>Hình ảnh</b></td>
+                    <td width='30%'><b>Đơn giá</b></td>
+                    <td width='30%'><b>Số lượng</b></td>
+                </tr>";
+            foreach($orderdetails as $val){
+            $html .= "<tr>
+                    <td width='20%'>".$val->product->name."</td>
+                    <td width='20%'><image width='100px' height='100px' src='https://www.beeart.vn/uploads/file/images/blog/apple/bee_art_logo_apple_2%20copy.jpg'></td>
+                    <td width='30%'>".$val->product->price."</td>
+                    <td width='30%'>".$val->qty."</td>     
+                    </tr>";
+            }
+        }
          return response()->json([
             'html' => $html
         ]);
