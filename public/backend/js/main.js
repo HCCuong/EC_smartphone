@@ -23,6 +23,25 @@ function removeRow(id, url){
     }
 }
 
+
+function details(id, url){
+    $('#tblempinfo tbody').empty();
+           $.ajax({
+            type: 'get',
+            datatype: 'JSON',
+            data: { id },
+            url: url,
+               success: function(response){
+
+                   // Add employee details
+                   $('#tblempinfo tbody').html(response.html);
+
+                   // Display Modal
+                   $('#empModal').modal('show'); 
+               }
+           });
+    }
+
 /* Upload file */
 $('#upload').change(function (){
    const form = new FormData();

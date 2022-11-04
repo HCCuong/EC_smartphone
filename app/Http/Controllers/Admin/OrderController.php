@@ -88,6 +88,15 @@ class OrderController extends Controller
             'ur'=>'../'
         ]);
     }
+    public function showmodal(Order $order)
+    {
+        return view('admin.modal.order_detail', [
+            'title'=>'Chi tiết hóa đơn:  ' . $order->id,
+            'order'=>$order,
+            'order_details'=>$this->orderDetailService->get($order->id),
+            'ur'=>'../'
+        ]);
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -128,4 +137,40 @@ class OrderController extends Controller
             'error' => true
         ]);
     }
+
+
+    public function getOrderDetails($orderid = 0){
+        $order = Order::with('user')->where('id', $orderid)->get();
+        $orderdetails = $this->orderDetailService->get($orderid);
+        $html = "<tr>
+                <td width='30%'><b>ID:</b></td>
+                <td width='70%'></td>
+             </tr>
+             ";
+        //if(!empty($order)){
+        //   $html = "<tr>
+        //        <td width='30%'><b>ID:</b></td>
+        //        <td width='70%'> ".$order->id."</td>
+        //     </tr>
+        //     <tr>
+        //        <td width='30%'><b>Username:</b></td>
+        //        <td width='70%'> ".$order->user->name."</td>
+        //     </tr>
+        //     <tr>
+        //        <td width='30%'><b>Phone:</b></td>
+        //        <td width='70%'> ".$order->phone."</td>
+        //     </tr>
+        //     <tr>
+        //        <td width='30%'><b>Address:</b></td>
+        //        <td width='70%'> ".$order->address."</td>
+        //     </tr>
+        //     <tr>
+        //        <td width='30%'><b>Total:</b></td>
+        //        <td width='70%'> ".$order->total."</td>
+        //    </tr>";
+        //}
+         return response()->json([
+            'html' => $html
+        ]);
+     }
 }

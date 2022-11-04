@@ -9,7 +9,7 @@ use \App\Http\Controllers\Admin\ProductController;
 use \App\Http\Controllers\Admin\UploadController;
 use \App\Http\Controllers\Admin\OrderController;
 use \App\Http\Controllers\Admin\UserController;
-
+use App\Models\Order;
 
 Route::get('/', function () {
     return view('welcome');
@@ -59,7 +59,9 @@ Route::get('/cart', function () {
             /*Route::post('/admin/save_product',[ProductController::class, 'save_category']);*/
             Route::get('order_list_cancel',[OrderController::class, 'get_list_cancel']);
             Route::get('order_list_new',[OrderController::class, 'get_list_new']);
-            Route::get('order_detail/{order}',[OrderController::class, 'show']);
+            //Route::get('order_detail/{order}',[OrderController::class, 'show']);
+            Route::get('order_detail/{orderid}',[OrderController::class, 'getOrderDetails']);
+
 
             #User
             Route::get('user_add',[UserController::class, 'create']);

@@ -6,7 +6,7 @@
     </div>
     <div class="card-body">
 
-    <div>
+    <div class="">
         <p>Tên khách hàng: {{$order->user->name}}</p>
         <p>Số loại sản phẩm: {{$order->qty}}</p>
         <p>Thành tiền: {{$order->total}}</p>

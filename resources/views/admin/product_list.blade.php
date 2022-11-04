@@ -30,7 +30,7 @@
                 <td>{!! \App\Helpers\Helper::active($product->active) !!}</td>
                 <td>{{$product->updated_at}}</td>
                 <td>
-                    <a class="btn btn-primary btn-sm" href="product_detail/{{ $product->id }}">Xem chi tiết</a>
+                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">Chi tiết</button>
                 </td>
                 <td>
                     <a class="btn btn-primary btn-sm" href="product_edit/{{ $product->id }}"><i class="fa fa-edit"></i></a>
@@ -44,4 +44,5 @@
     </table>
     </div>
     <!--{{ $products->links() }}-->
+    @include('admin.modal.product_detail')
 @endsection
