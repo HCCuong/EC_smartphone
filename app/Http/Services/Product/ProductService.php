@@ -97,11 +97,28 @@ class ProductService
     public function update($product, $request){
         $isValidPrice = $this->isValidPrice($request);
         if (!$isValidPrice) return false;
-        //dd($request->all());
         try {
+            $id = (int) ProductDetail::where('pro_id', $product->id)->first()->id;
             $product->fill($request->input());
             $product->save();
-            Session::flash('success', 'Câp nhật sản phẩm thành công');
+            $productdetail = ProductDetail::find($id);
+            $productdetail->fill([
+                'cpu' => (string) $request->input('cpu'),
+                'ram' => (string) $request->input('ram'),
+                'screen' => (string) $request->input('screen'),
+                'storage' => (string) $request->input('storage'),
+                'exten_memmory' => (string) $request->input('exten_memmory'),
+                'cam1' => (string) $request->input('cam1'),
+                'cam2' => (string) $request->input('cam2'),
+                'sim' => (string) $request->input('sim'),
+                'connect' => (string) $request->input('connect'),
+                'pin' => (string) $request->input('pin'),
+                'os' => (string) $request->input('os'),
+                'note' => '',
+                'pro_id' => (int) $product->id
+            ]);
+            $productdetail->save();
+            Session::flash('success', 'Câp nhật sản phẩm thành công.');
         } catch (\Exception $err){
             Session::flash('error', 'Cập nhật sản phẩm thất bại !');
             \Log::info($err->getMessage());
@@ -112,7 +129,7 @@ class ProductService
 
     public function delete($request){
         $product = Product::where('id', $request->input('id'))->first();
-        $productdetail = ProductDetail::where('pro_id', $request->input('id'))->get();
+        $productdetail = ProductDetail::where('pro_id', $request->input('id'))->first();
         if($product && $productdetail){
             $product->delete();
             $productdetail->delete();
@@ -122,5 +139,9 @@ class ProductService
     }
     public function count(){
         return Product::query()->count();
+    }
+
+    public function getDetail($request){
+        return ProductDetail::where('pro_id', $request)->get();
     }
 }

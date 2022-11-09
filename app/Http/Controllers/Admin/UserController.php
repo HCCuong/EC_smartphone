@@ -115,4 +115,37 @@ class UserController extends Controller
             'error' => true
         ]);
     }
+
+    public function getUserDetails($userid = 0){
+        $user = User::find($userid);
+        $html = "";
+        $header = "";
+        if(!empty($user)){
+            $html .= "
+                <tr>
+                    <td width='40%'><b>Tên: </b></td>
+                    <td width='60%'>".$user->name."</td>
+                </tr>
+                <tr>
+                    <td width='40%'><b>Email: </b></td>
+                    <td width='60%'>".$user->email."</td>
+                </tr>
+                <tr>
+                    <td width='40%'><b>SDT: </b></td>
+                    <td width='60%'>".$user->phone."</p>
+                </tr>
+                <tr>
+                    <td width='40%'><b>Địa chỉ: </b></td>
+                    <td width='60%'>".$user->address."</td>
+                </tr>";
+
+            $header .= "
+                <tr>
+                    <td width='40%'><a class='btn btn-danger btn-sm' href='logout'>Đăng xuất</a></td>
+                </tr>";
+        }
+         return response()->json([
+            'html' => $html
+        ]);
+     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\ProductDetail;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -72,9 +73,11 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
+        //dd($this->productService->getDetail($product->id));
         return view('admin.product_edit', [
             'title'=>'Chỉnh sửa sản phẩm:  ' . $product->name,
             'product'=>$product,
+            'product_detail'=>$this->productService->getDetail($product->id),
             'categories'=>$this->categoryService->getParent(),
             'ur'=>'../'
         ]);
@@ -121,5 +124,42 @@ class ProductController extends Controller
         return response()->json([
             'error' => true
         ]);
+    }
+
+    public function getProductDetails($productid = 0){
+        $product = Product::find($productid);
+        //$orderdetails = OrderDetail::find($orderid);
+        $productdetails = $this->productService->getDetail($productid);
+        $html = "";
+        if(!empty($product)){
+            $html .= "
+                <div class='row m-2'>
+                    <div class='col-md-5'>
+                        <img width='280px' height='300px' src='https://www.beeart.vn/uploads/file/images/blog/apple/bee_art_logo_apple_2%20copy.jpg'>
+                    </div>
+                    <div class='col-md-7 pl-2'>
+                        <p><b>Tên sản phẩm:</b> $product->name</p>
+                        <p><b>Thuộc loại: </b>".$product->category->name."</p>
+                        <p><b>Đơn giá: </b>$product->price</p>
+                        <p><b>Phụ kiện: </b>$product->packet</p>
+                        <p><b>Mô tả: </b>$product->review</p>
+                    </div>
+            ";
+
+            if(!empty($productdetails)){
+                foreach($productdetails as $val){
+                    $html .= "
+                        <div class='m-3'>
+                            <h5>Thông tin cấu hình</h5>  
+                        </div>
+                    </div>";
+                }
+            }else{
+                $html .= "</div>";
+            }
+            return response()->json([
+            'html' => $html
+            ]);
+        }
     }
 }

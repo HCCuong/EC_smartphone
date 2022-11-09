@@ -31,6 +31,8 @@ Route::get('/cart', function () {
             Route::get('main', [MainController::class, 'index'])->name('admin');
             Route::get('home',[AdminController::class, 'index']);
             Route::get('dashboard',[AdminController::class, 'index']);
+            Route::get('logout',[LoginController::class, 'logout']);
+            Route::get('user_detail/{userid}',[UserController::class, 'getUserDetails']);
 
             #Category
             Route::get('cate_add',[CategoryProduct::class, 'create']);
@@ -49,6 +51,7 @@ Route::get('/cart', function () {
             Route::get('product_edit/{product}',[ProductController::class, 'show']);
             Route::post('product_edit/{product}',[ProductController::class, 'update']);
             Route::DELETE('product_destroy',[ProductController::class, 'destroy']);
+            Route::get('product_detail/{productid}',[ProductController::class, 'getProductDetails']);
 
 
             #Upload

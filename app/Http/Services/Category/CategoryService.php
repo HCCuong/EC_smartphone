@@ -33,10 +33,13 @@ class CategoryService
     }
 
     public function destroy($request){
-        $category = Category::where('id', $request->input('id'))->first();
         $id = (int) $request->input('id');
+        $category = Category::where('id', $id)->orWhere('parent_id', $id)->get();
+        dd($id);
         if($category){
-            return Category::where('id', $id)->orWhere('parent_id', $id)->delete();
+            //Category::where('id', $id)->orWhere('parent_id', $id)->delete();
+            $category->delete();
+            return true;
         }
         return false;
     }

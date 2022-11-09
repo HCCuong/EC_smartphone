@@ -8,18 +8,17 @@
     <div class="sidebar">
         <!-- Sidebar user (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-            <div class="info">
-                <a href="#" class="d-block">
+            <div class="info" id="user">
                     <i class="nav-icon fas fa-user-circle"></i>
                     <span class="username">
                     <?php
                     $username = Session::get('admin_name');
+                    $userid = Session::get('admin_id');
                     if($username){
-                        echo $username;
+                        echo "<button class='btn' onclick='userdetail($userid)' >$username</button>";
                     }
                     ?>
                     </span>
-                </a>
             </div>
         </div>
 
@@ -176,4 +175,26 @@
         <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
+
+    @include('admin.modal.user_detail')
+
+    <script type='text/javascript'>
+   
+        function userdetail(id){
+            var url = "user_detail/"+id;
+        $('#tbluserinfo tbody').empty();
+           $.ajax({
+            datatype: 'JSON',
+            url: url,
+               success: function(response){
+
+                   // Add employee details
+                   $('#tbluserinfo tbody').html(response.html);
+
+                   // Display Modal
+                   $('#userModal').modal('show'); 
+               }
+           });
+    }
+   </script>
 </aside>

@@ -30,7 +30,7 @@
                 <td>{!! \App\Helpers\Helper::active($product->active) !!}</td>
                 <td>{{$product->updated_at}}</td>
                 <td>
-                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">Chi tiết</button>
+                    <button class='btn btn-info viewdetails' data-id='{{ $product->id }}' >Chi tiết</button>
                 </td>
                 <td>
                     <a class="btn btn-primary btn-sm" href="product_edit/{{ $product->id }}"><i class="fa fa-edit"></i></a>
@@ -45,4 +45,37 @@
     </div>
     <!--{{ $products->links() }}-->
     @include('admin.modal.product_detail')
+
+   <script type='text/javascript'>
+   $(document).ready(function(){
+
+      $('#example1').on('click','.viewdetails',function(){
+          var productid = $(this).attr('data-id');
+
+          if(productid > 0){
+
+             // AJAX request
+             var url = "product_detail/"+productid;
+
+             // Empty modal data
+             $('.modal-body').empty();
+
+             $.ajax({
+                 url: url,
+                 dataType: 'json',
+                 success: function(response){
+
+                     // Add employee details
+                     $('.modal-body').html(response.html);
+
+                     // Display Modal
+                     $('#empModal').modal('show'); 
+                 }
+             });
+          }
+      });
+
+   });
+   </script>
+
 @endsection
