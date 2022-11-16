@@ -29,16 +29,16 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return view('admin.order_list', [
+        return view('admin.order_list_done', [
             'title'=>'Danh sách đơn hàng',
-            'orders'=>$this->orderService->getAll(),
+            'orders'=>$this->orderService->getListDone(),
             'ur'=>''
         ]);
     }
 
     public function get_list_new()
     {
-        return view('admin.order_list', [
+        return view('admin.order_list_new', [
             
             'title'=>'Danh sách đơn hàng mới',
             'orders'=>$this->orderService->getAll(),
@@ -48,9 +48,9 @@ class OrderController extends Controller
 
     public function get_list_cancel()
     {
-        return view('admin.order_list', [
+        return view('admin.order_list_cancel', [
             'title'=>'Danh sách đơn hàng đã hủy',
-            'orders'=>$this->orderService->getAll(),
+            'orders'=>$this->orderService->getListCancel(),
             'ur'=>''
         ]);
     }

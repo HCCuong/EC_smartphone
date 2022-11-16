@@ -12,13 +12,13 @@ class Helper{
                 <tr>
                     <td>'. $category->id .'</td>
                     <td>'. $char . $category->name .'</td>
-                    <td>'. self::active($category->active) .'</td>
+                    <td>'. self::activecate($category->active) .'</td>
                     <td>'. $category->updated_at .'</td>
                     <td>
                         <a class="btn btn-primary btn-sm" href="cate_edit/'.$category->id.'"><i class="fa fa-edit"></i></a>
                     </td>
                     <td>
-                        <a class="btn btn-danger btn-sm" href="" onclick="removeRow(' . $category->id . ', \'cate_destroy\')"><i class="fa fa-trash"></i></a>
+                        <a class="btn btn-danger btn-sm" href="" onclick="removeRow('.$category->id . ', cate_destroy)"><i class="fa fa-trash"></i></a>
                     </td>
                 </tr>';
 
@@ -55,7 +55,10 @@ class Helper{
     }
 
     public static function active($active = 0) : string{
-        return $active == 0 ? '<span class="btn btn-danger btn-xs">Hết</span>' : '<span class="btn btn-success btn-xs">Còn hàng</span>';
+        return $active == 0 ? '<span class="btn btn-danger btn-xs">Không bán</span>' : '<span class="btn btn-success btn-xs">Bán</span>';
+    }
+    public static function activecate($active = 0) : string{
+        return $active == 0 ? '<span class="btn btn-danger btn-xs">Không</span>' : '<span class="btn btn-success btn-xs">Có</span>';
     }
     public static function level($level = 1) : string{
         return $level == 1 ? '<p>Khách hàng</p>' : '<p>Quản lý</p>';

@@ -11,8 +11,20 @@ class OrderService
 {
     public function getAll()
     {
-        return Order::with('user')->orderbyDesc('id', 0)->paginate(100);
+        return Order::with('user')->where('status', '=', 1)->orWhere('status', '=', 2)->paginate(100);
         //return Order::orderbyDesc('id', '>', 100)->cursorPaginate(10);
+    }
+
+    //Lấy danh sách đơn hàng đã giao
+    public function getListDone()
+    {
+        return Order::with('user')->where('status','=', 3)->paginate(100);
+    }
+
+    //Lấy danh sách đơn hàng đã bị hủy
+    public function getListCancel()
+    {
+        return Order::with('user')->where('status', 0)->paginate(100);
     }
 
     public function getById($request)

@@ -18,7 +18,8 @@ class Product extends Model
         'review',
         'images',
         'slug',
-        'active'
+        'active',
+        'quantity'
     ];
 
     public function category(): \Illuminate\Database\Eloquent\Relations\HasOne

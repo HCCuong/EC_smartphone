@@ -14,6 +14,7 @@ class Category extends Model
         'parent_id',
         'description',
         'slug',
-        'active'
+        'active',
+        'stock_id'
     ];
 }

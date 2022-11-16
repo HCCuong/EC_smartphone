@@ -1,14 +1,6 @@
 @extends('admin.main')
 @section('content')
-    <span class="username">
-                    <?php
-                    $username = Session::get('admin_name');
-                    if($username){
-                        echo 'Xin chào '.$username;
-                    }
-                    ?>
-                </span>
-                <div class="row">
+        <div class="row">
                     
           <div class="col-lg-3 col-6">
             <!-- small box -->

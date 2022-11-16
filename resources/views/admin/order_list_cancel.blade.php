@@ -12,8 +12,8 @@
             <th>Tên khách hàng</th>
             <th>Số loại sản phẩm</th>
             <th>Thành tiền</th>
-            <th>Tình trạng</th>
             <th>Ngày lập</th>
+            <th>Ngày giao</th>
             <th>Chi tiết</th>
             <th style="width:20px;">Xóa</th>
         </tr>
@@ -25,8 +25,8 @@
                 <td>{{$order->user->name}}</td>
                 <td>{{$order->qty}}</td>
                 <td>{{$order->total}}</td>
-                <td>{!! \App\Helpers\Helper::active($order->status) !!}</td>
                 <td>{{$order->created_at}}</td>
+                <td>{{$order->updated_at}}</td>
                 <!--<td>
                     <a class="btn btn-info" href="order_detail/{{ $order->id }}">Chi tiết</a>
                 </td>-->

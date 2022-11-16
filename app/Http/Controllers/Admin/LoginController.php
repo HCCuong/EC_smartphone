@@ -39,7 +39,7 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         Auth::logout();
-        Session::remove();
-        return redirect('login');
+        //Session::remove();
+        return redirect('admin/login');
     }
 }

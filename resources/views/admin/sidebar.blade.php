@@ -9,13 +9,13 @@
         <!-- Sidebar user (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="info" id="user">
-                    <i class="nav-icon fas fa-user-circle"></i>
                     <span class="username">
                     <?php
                     $username = Session::get('admin_name');
                     $userid = Session::get('admin_id');
                     if($username){
-                        echo "<button class='btn' onclick='userdetail($userid)' >$username</button>";
+                        echo "<button class='btn btn-light' onclick='userdetail($userid)' ><i class='nav-icon fas fa-user-circle'></i> $username</button>
+                        ";
                     }
                     ?>
                     </span>
@@ -39,29 +39,7 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>
-                           Danh mục
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{$ur}}cate_add" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Thêm danh mục</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{$ur}}cate_list" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Danh sách danh mục</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                
                 <li class="nav-item">
                     <a href="dashboard" class="nav-link">
                         <i class="nav-icon fas fa-chart-pie"></i>
@@ -111,7 +89,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="order_list" class="nav-link">
+                            <a href="order_list_done" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Đơn hàng đã giao</p>
                             </a>
@@ -120,6 +98,52 @@
                             <a href="order_list_cancel" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Đơn hàng bị hủy</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-copy"></i>
+                        <p>
+                            Khuyến mãi
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{$ur}}product_add" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Thêm khuyến mãi</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{$ur}}product_list" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Danh sách khuyến mãi</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>
+                           Danh mục
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{$ur}}cate_add" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Thêm danh mục</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{$ur}}cate_list" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Danh sách danh mục</p>
                             </a>
                         </li>
                     </ul>
@@ -136,13 +160,13 @@
                         <li class="nav-item">
                             <a href="{{$ur}}user_add" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Thêm tài khoản</p>
+                                <p>Quản trị</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{$ur}}user_list" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Danh sách tài khoản</p>
+                                <p>Khách hàng</p>
                             </a>
                         </li>
                     </ul>
@@ -166,6 +190,29 @@
                             <a href="{{$ur}}slider_list" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Danh sách slider</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-copy"></i>
+                        <p>
+                            Kho hàng
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{$ur}}stock_add" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Thêm kho hàng</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{$ur}}stock_list" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Danh sách kho hàng</p>
                             </a>
                         </li>
                     </ul>

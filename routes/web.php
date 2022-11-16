@@ -32,13 +32,14 @@ Route::get('/cart', function () {
             Route::get('home',[AdminController::class, 'index']);
             Route::get('dashboard',[AdminController::class, 'index']);
             Route::get('logout',[LoginController::class, 'logout']);
+            Route::get('logout',[LoginController::class, 'profile']);
             Route::get('user_detail/{userid}',[UserController::class, 'getUserDetails']);
 
             #Category
             Route::get('cate_add',[CategoryProduct::class, 'create']);
             Route::get('cate_list',[CategoryProduct::class, 'index']);
             Route::post('save_category',[CategoryProduct::class, 'store']);
-            Route::DELETE('cate_destroy',[CategoryProduct::class, 'destroy']);
+            //Route::DELETE('cate_destroy',[CategoryProduct::class, 'destroy']);
             Route::get('cate_edit/{category}',[CategoryProduct::class, 'show']);
             Route::post('cate_edit/{category}',[CategoryProduct::class, 'update']);
 
@@ -58,7 +59,7 @@ Route::get('/cart', function () {
             Route::post('upload', [UploadController::class, 'store']);
 
             #Order
-            Route::get('order_list',[OrderController::class, 'index']);
+            Route::get('order_list_done',[OrderController::class, 'index']);
             /*Route::post('/admin/save_product',[ProductController::class, 'save_category']);*/
             Route::get('order_list_cancel',[OrderController::class, 'get_list_cancel']);
             Route::get('order_list_new',[OrderController::class, 'get_list_new']);

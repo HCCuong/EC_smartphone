@@ -18,12 +18,16 @@
                 <input type="text" class="form-control" value="{{ old('name') }}" id="name" name="name" placeholder="Nhập tên sản phẩm">
             </div>
             <div class="form-group">
+                <label for="quantity">Số lượng</label>
+                <input type="number" class="form-control" value="{{ old('quantity') }}" id="quantity" name="quantity" placeholder="Nhập số lượng của sản phẩm">
+            </div>
+            <div class="form-group">
                 <label for="price">Giá gốc</label>
                 <input type="number" class="form-control" value="{{ old('price') }}" id="price" name="price" placeholder="Nhập giá gốc của sản phẩm">
             </div>
             <div class="form-group">
-                <label for="price_sale">Giá giảm</label>
-                <input type="number" class="form-control" value="{{ old('price_sale') }}" id="price_sale" name="price_sale" placeholder="Nhập giá giảm của sản phẩm">
+                <label for="price_sale">Giá bán</label>
+                <input type="number" class="form-control" value="{{ old('price_sale') }}" id="price_sale" name="price_sale" placeholder="Nhập giá bán của sản phẩm">
             </div>
             <div class="form-group">
                 <label for="packet">Phụ kiện</label>

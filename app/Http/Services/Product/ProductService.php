@@ -19,6 +19,7 @@ class ProductService
                 'review' => (string) $request->input('review'),
                 'images' => (string) $request->input('file'),
                 'active' => (string) $request->input('active'),
+                'quantity' => (int) $request->input('quantity'),
                 'slug' => Str::slug($request->input('name'), '-')
             ]);
             Session::flash('success', 'Tạo sản phẩm thành công');
@@ -37,8 +38,8 @@ class ProductService
 
     protected function isValidPrice($request){
         if ($request->input('price') != 0 && $request->input('price_sale') != 0
-        && $request->input('price_sale') >= $request->input('price')){
-            Session::flash('error', 'Giá giảm phải nhỏ hơn giá gốc của sản phẩm !');
+        && $request->input('price_sale') <= $request->input('price')){
+            Session::flash('error', 'Giá bán phải lớn hơn giá gốc của sản phẩm !');
             return false;
         }
 
@@ -64,6 +65,7 @@ class ProductService
                 'review' => (string) $request->input('review'),
                 'images' => (string) $request->input('file'),
                 'active' => (string) $request->input('active'),
+                'quantity' => (int) $request->input('quantity'),
                 'slug' => Str::slug($request->input('name'), '-')
             ]);
 
@@ -137,11 +139,13 @@ class ProductService
         }
         return false;
     }
+
+    
     public function count(){
         return Product::query()->count();
     }
 
     public function getDetail($request){
-        return ProductDetail::where('pro_id', $request)->get();
+        return ProductDetail::where('pro_id', $request)->first();
     }
 }

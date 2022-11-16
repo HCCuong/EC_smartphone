@@ -29,6 +29,7 @@ class CategoryProduct extends Controller
     }
 
     public function index(){
+        //dd($this->categoryService->getAll());
         return view('admin.cate_list', [
             'title'=>'Danh sách danh mục',
             'categories'=>$this->categoryService->getAll(),

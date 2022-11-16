@@ -9,11 +9,11 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Name</th>
-                <th>Active</th>
-                <th>Update</th>
-                <th style="width:20px;"></th>
-                <th style="width:20px;"></th>
+                <th>Tên danh mục</th>
+                <th>Khả dụng</th>
+                <th>Ngày cập nhật</th>
+                <th style="width:20px;">Sửa</th>
+                <th style="width:20px;">Xóa</th>
             </tr>
         </thead>
         <tbody>

@@ -12,7 +12,8 @@
             <th>ID</th>
             <th>Tên sản phẩm</th>
             <th>Loại sản phẩm</th>
-            <th>Giá</th>
+            <th>Giá bán</th>
+            <th>Số lượng</th>
             <th>Tình trạng</th>
             <th>Ngày cập nhật</th>
             <th>Chi tiết</th>
@@ -26,7 +27,8 @@
                 <td>{{$product->id}}</td>
                 <td>{{$product->name}}</td>
                 <td>{{$product->category->name}}</td>
-                <td>{{$product->price}}</td>
+                <td>{{$product->price_sale}}</td>
+                <td>{{$product->quantity}}</td>
                 <td>{!! \App\Helpers\Helper::active($product->active) !!}</td>
                 <td>{{$product->updated_at}}</td>
                 <td>

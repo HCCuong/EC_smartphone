@@ -25,10 +25,11 @@ class CategoryService
     }
 
     public function getParent(){
-        return Category::where('parent_id', 0)->get();
+        return Category::where('parent_id', 0)->cursorPaginate(100);
     }
 
     public function getAll(){
+        //return Category::orderbyDesc('id', '>', 100)->cursorPaginate(100);
         return Category::orderbyDesc('id', '>', 100)->cursorPaginate(100);
     }
 
@@ -58,5 +59,9 @@ class CategoryService
            return false;
        }
        return true;
+    }
+
+    public function count(){
+        return Category::query()->count();
     }
 }
