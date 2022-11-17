@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use Illuminate\Http\JsonResponse;
 
-//use App\Http\Requests\User\CreateFormRequest;
+use App\Http\Requests\User\CreateFormRequest;
 use App\Http\Services\User\UserService;
 use DB;
 use App\Http\Requests;
@@ -38,6 +38,24 @@ class UserController extends Controller
         ]);
     }
 
+    public function getAdmins()
+    {
+        return view('admin.admin_list', [
+            'title'=>'Danh sách tài khoản quản trị',
+            'users'=>$this->userService->getAdmins(),
+            'ur'=>''
+        ]);
+    }
+
+    public function getCustomers()
+    {
+        return view('admin.customer_list', [
+            'title'=>'Danh sách tài khoản khách hàng',
+            'users'=>$this->userService->getCustomers(),
+            'ur'=>''
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -45,6 +63,10 @@ class UserController extends Controller
      */
     public function create()
     {
+        return view('admin.addAdminAccount',[
+            'title'=>'Thêm tài khoản quản trị',
+            'ur'=>''
+        ]);
     }
 
     /**
@@ -66,7 +88,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return view('admin.user_edit', [
+        return view('admin.admin_edit', [
             'title'=>'Chỉnh sửa tài khoản:  ' . $user->name,
             'user'=>$user,
             'ur'=>'../'
@@ -93,7 +115,7 @@ class UserController extends Controller
      */
     public function update(User $user, CreateFormRequest $request){
         $result = $this->userService->update($user, $request);
-        if($result) return redirect('admin/user_list');
+        if($result) return redirect('admin/admin_list');
         return redirect()->back();
     }
 
@@ -104,6 +126,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request): JsonResponse{
+        dd($request->input('id'));
         $result = $this->productService->delete($request);
         if($result){
             return response()->json([

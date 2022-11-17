@@ -13,17 +13,28 @@ class UserService
         return User::orderbyDesc('id', '>', 100)->cursorPaginate(100);
     }
 
+
+    public function getAdmins()
+    {
+        return User::where('level', 2)->cursorPaginate(100);
+    }
+
+    public function getCustomers()
+    {
+        return User::where('level', 1)->cursorPaginate(100);
+    }
+
     public function insert($request){
         try {
             $request->except('_token');
             User::create([
                 'name' => (string) $request->input('name'),
-                'password' => (string) $request->input('password'),
+                'password' => bcrypt($request->input('password')),
                 'email' => (string) $request->input('email'),
                 'phone' => (int) $request->input('phone'),
                 'address' => (string) $request->input('address'),
-                'status' => (int) $request->input('status'),
-                'level' => (int) $request->input('level')
+                'status' => 1,
+                'level' => 2
             ]);
             Session::flash('success', 'Thêm tài khoản thành công');
         } catch (\Exception $err){
@@ -48,13 +59,14 @@ class UserService
     }
 
     public function delete($request){
-        $product = User::where('id', $request->input('id'))->first();
-        if($product){
-            $product->delete();
+        $user = User::where('id', $request->input('id'))->first();
+        if($user){
+            $user->delete();
             return true;
         }
         return false;
     }
+
     public function count(){
         return User::query()->count();
     }

@@ -11,11 +11,12 @@
             <th>ID</th>
             <th>Name</th>
             <th>Email</th>
+            <th>Phone</th>
+            <th>Address</th>
             <th>Active</th>
-            <th>Level</th>
             <th>Update</th>
-            <th style="width:20px;"></th>
-            <th style="width:20px;"></th>
+            <th style="width:20px;">Khóa</th>
+            <th style="width:20px;">Xóa</th>
         </tr>
         </thead>
         <tbody>
@@ -24,14 +25,15 @@
                 <td>{{$user->id}}</td>
                 <td>{{$user->name}}</td>
                 <td>{{$user->email}}</td>
-                <td>{!! \App\Helpers\Helper::active($user->status) !!}</td>
-                <td>{!! \App\Helpers\Helper::level($user->level) !!}</td>
+                <td>{{$user->phone}}</td>
+                <td>{{$user->address}}</td>
+                <td>{!! \App\Helpers\Helper::useractive($user->status) !!}</td>
                 <td>{{$user->updated_at}}</td>
                 <td>
-                    <a class="btn btn-primary btn-sm" href="user_edit/{{ $user->id }}"><i class="fa fa-edit"></i></a>
+                    <a class="btn btn-primary btn-sm" href="user_edit/{{ $user->id }}">Khóa</a>
                 </td>
                 <td>
-                    <a class="btn btn-danger btn-sm" href="" onclick="removeRow( {{$user->id }}, 'user_destroy')"><i class="fa fa-trash"></i></a>
+                <a class="btn btn-danger btn-sm" href="" onclick="removeRow( {{$user->id }}, 'admin_destroy')"><i class="fa fa-trash"></i></a>
                 </td>
             </tr>
         @endforeach

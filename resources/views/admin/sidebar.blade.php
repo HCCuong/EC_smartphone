@@ -158,13 +158,13 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{$ur}}user_add" class="nav-link">
+                            <a href="{{$ur}}admin_list" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Quản trị</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{$ur}}user_list" class="nav-link">
+                            <a href="{{$ur}}customer_list" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Khách hàng</p>
                             </a>

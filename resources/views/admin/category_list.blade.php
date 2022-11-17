@@ -18,12 +18,11 @@
             </tr>
         </thead>
         <tbody>
-            <!--{!! \App\Helpers\Helper::category($categories) !!}-->
             @foreach($categories as $key => $category)
             <tr>
                 <td>{{$category->id}}</td>
                 <td>{{$category->name}}</td>
-                <td>{{$category->category->name}}</td>
+                <td>{{$category->parent_id}}</td>
                 <td>{{$category->active}}</td>
                 <td>{{$product->updated_at}}</td>
                 <td>
@@ -37,5 +36,4 @@
         </tbody>
     </table>
     </div>
-    <!--{{ $categories->links() }}-->
 @endsection

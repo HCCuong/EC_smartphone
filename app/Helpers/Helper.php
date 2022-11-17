@@ -63,4 +63,7 @@ class Helper{
     public static function level($level = 1) : string{
         return $level == 1 ? '<p>Khách hàng</p>' : '<p>Quản lý</p>';
     }
+    public static function useractive($active = 0) : string{
+        return $active == 0 ? '<span class="btn btn-danger btn-xs">Khóa</span>' : '<span class="btn btn-success btn-xs">Sử dụng</span>';
+    }
 }

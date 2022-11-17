@@ -32,7 +32,7 @@ Route::get('/cart', function () {
             Route::get('home',[AdminController::class, 'index']);
             Route::get('dashboard',[AdminController::class, 'index']);
             Route::get('logout',[LoginController::class, 'logout']);
-            Route::get('logout',[LoginController::class, 'profile']);
+            Route::get('profile',[LoginController::class, 'profile']);
             Route::get('user_detail/{userid}',[UserController::class, 'getUserDetails']);
 
             #Category
@@ -68,12 +68,14 @@ Route::get('/cart', function () {
 
 
             #User
-            Route::get('user_add',[UserController::class, 'create']);
-            Route::get('user_list',[UserController::class, 'index']);
+            Route::get('admin_add',[UserController::class, 'create']);
+            Route::get('admin_list',[UserController::class, 'getAdmins']);
+            Route::get('customer_list',[UserController::class, 'getCustomers']);
             Route::post('save_user',[UserController::class, 'store']);
-            Route::get('user_edit/{user}',[UserController::class, 'show']);
-            Route::post('user_edit/{user}',[UserController::class, 'update']);
-            Route::DELETE('user_destroy',[UserController::class, 'destroy']);
+            Route::get('admin_edit/{user}',[UserController::class, 'show']);
+            Route::post('admin_edit/{user}',[UserController::class, 'update']);
+            Route::post('admin_save',[UserController::class, 'store']);
+            Route::DELETE('admin_destroy',[UserController::class, 'destroy']);
 
             #Slider
             Route::get('slider_add',[UserController::class, 'create']);
