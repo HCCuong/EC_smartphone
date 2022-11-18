@@ -55,7 +55,7 @@
                         <p>
                             Sản phẩm
                             <i class="fas fa-angle-left right"></i>
-                            <span class="badge badge-info right">6</span>
+                            <!--<span class="badge badge-info right">6</span>-->
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
@@ -98,29 +98,6 @@
                             <a href="order_list_cancel" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Đơn hàng bị hủy</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-copy"></i>
-                        <p>
-                            Khuyến mãi
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{$ur}}product_add" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Thêm khuyến mãi</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{$ur}}product_list" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Danh sách khuyến mãi</p>
                             </a>
                         </li>
                     </ul>
@@ -173,46 +150,23 @@
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-sliders-h"></i>
-                        <p>
-                            Slider
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{$ur}}slider_add" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Thêm slider</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{$ur}}slider_list" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Danh sách slider</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-copy"></i>
                         <p>
-                            Kho hàng
+                            Khuyến mãi
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{$ur}}stock_add" class="nav-link">
+                            <a href="{{$ur}}product_add" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Thêm kho hàng</p>
+                                <p>Thêm khuyến mãi</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{$ur}}stock_list" class="nav-link">
+                            <a href="{{$ur}}product_list" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Danh sách kho hàng</p>
+                                <p>Danh sách khuyến mãi</p>
                             </a>
                         </li>
                     </ul>
@@ -223,24 +177,18 @@
     </div>
     <!-- /.sidebar -->
 
-    @include('admin.modal.user_detail')
-
     <script type='text/javascript'>
    
         function userdetail(id){
             var url = "user_detail/"+id;
-        $('#tbluserinfo tbody').empty();
+            $('.modal-body').empty();
            $.ajax({
             datatype: 'JSON',
             url: url,
                success: function(response){
-
-                   // Add employee details
-                   $('#tbluserinfo tbody').html(response.html);
-
-                   // Display Modal
-                   $('#userModal').modal('show'); 
-               }
+                    $('.modal-body').html(response.html);
+                    // Display Modal
+                    $('#empModal').modal('show');               }
            });
     }
    </script>

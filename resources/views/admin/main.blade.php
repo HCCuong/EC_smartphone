@@ -50,6 +50,7 @@
     <!-- /.content-wrapper -->
 </div>
 <!-- ./wrapper -->
+@include('admin.modal.user_detail')
 
 @include('admin.footer')
 </body>

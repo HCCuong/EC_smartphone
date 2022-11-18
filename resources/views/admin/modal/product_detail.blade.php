@@ -4,7 +4,7 @@
             <!-- Modal content-->
             <div class="modal-content w-100">
                <div class="modal-header">
-                  <h4 class="modal-title">Chi tiết sản phẩm</h4>
+                  <h4 class="modal-title">Chi tiết tài khoản</h4>
                   <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                </div>
                <div class="modal-body">

@@ -7,13 +7,6 @@
         <li class="nav-item d-none d-sm-inline-block">
             <a href="home" class="nav-link">Home</a>
         </li>
-        
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="profile" class="nav-link">Tài khoản</a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="logout" class="nav-link">Đăng xuất</a>
-        </li>
     </ul>
 
     <!-- Right navbar links -->

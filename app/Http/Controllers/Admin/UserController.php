@@ -8,8 +8,11 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use Illuminate\Http\JsonResponse;
 
+
 use App\Http\Requests\User\CreateFormRequest;
 use App\Http\Services\User\UserService;
+use Illuminate\Support\Facades\Hash;
+
 use DB;
 use App\Http\Requests;
 use Session;
@@ -126,8 +129,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request): JsonResponse{
-        dd($request->input('id'));
-        $result = $this->productService->delete($request);
+        $result = $this->userService->delete($request);
         if($result){
             return response()->json([
                 'error' => false,
@@ -142,30 +144,28 @@ class UserController extends Controller
     public function getUserDetails($userid = 0){
         $user = User::find($userid);
         $html = "";
-        $header = "";
         if(!empty($user)){
             $html .= "
-                <tr>
-                    <td width='40%'><b>Tên: </b></td>
-                    <td width='60%'>".$user->name."</td>
-                </tr>
-                <tr>
-                    <td width='40%'><b>Email: </b></td>
-                    <td width='60%'>".$user->email."</td>
-                </tr>
-                <tr>
-                    <td width='40%'><b>SDT: </b></td>
-                    <td width='60%'>".$user->phone."</p>
-                </tr>
-                <tr>
-                    <td width='40%'><b>Địa chỉ: </b></td>
-                    <td width='60%'>".$user->address."</td>
-                </tr>";
-
-            $header .= "
-                <tr>
-                    <td width='40%'><a class='btn btn-danger btn-sm' href='logout'>Đăng xuất</a></td>
-                </tr>";
+            <div class='row m-2'>
+                <div class='col-md-3'>
+                    <p><b>Tên tài khoản:</b></p>
+                    <p><b>Email:</b></p>
+                    <p><b>Số điện thoại:</b></p>
+                    <p><b>Địa chỉ:</b></p>                    
+                </div>
+                <div class='col-md-9'>
+                    <p>".$user->name."</p>
+                    <p>".$user->email."</p>
+                    <p>".$user->phone."</p>
+                    <p>".$user->address."</p>
+                </div>
+                
+                
+            </div>
+            <div class='row m-2'>
+                <div class='col-md-3'><a class='btn btn-primary btn-sm' href='update_password'>Đổi mật khẩu</a></div>
+                <div class='col-md-9'><a class='btn btn-danger btn-sm' href='logout'>Đăng xuất</a></div>
+            </div>";
         }
          return response()->json([
             'html' => $html
