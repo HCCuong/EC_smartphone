@@ -9,6 +9,7 @@ use \App\Http\Controllers\Admin\ProductController;
 use \App\Http\Controllers\Admin\UploadController;
 use \App\Http\Controllers\Admin\OrderController;
 use \App\Http\Controllers\Admin\UserController;
+use \App\Http\Controllers\Admin\ChartController;
 use App\Models\Order;
 
 Route::get('/', function () {
@@ -99,6 +100,9 @@ Route::get('/cart', function () {
     /*Category Product*/
 
 
+// DataAnalytics
 
+    Route::get('/chart', [ChartController::class, 'index']);
+    Route::get('fetch_data', [ChartController::class, 'fetch_data']);
 
 

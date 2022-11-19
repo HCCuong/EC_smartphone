@@ -77,4 +77,7 @@ class CategoryProduct extends Controller
             'error' => true
         ]);
     }
+
+
+    public function fetch_data()
 }
