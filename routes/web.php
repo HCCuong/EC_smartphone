@@ -10,20 +10,60 @@ use \App\Http\Controllers\Admin\UploadController;
 use \App\Http\Controllers\Admin\OrderController;
 use \App\Http\Controllers\Admin\UserController;
 use \App\Http\Controllers\Admin\ChartController;
+
+use \App\Http\Controllers\Customer\CustomerController;
+use \App\Http\Controllers\Customer\UserControllerFE;
+use \App\Http\Controllers\Customer\CartController;
+use \App\Http\Controllers\Customer\CheckoutController;
 use App\Models\Order;
 
-Route::get('/', function () {
-    return view('welcome');
+Route::prefix('/')->group(function (){
+    Route::get('',[CustomerController::class,'index'])->name('index');
+
+    Route::get('showlogin',[UserControllerFE::class,'showLogin'])->name(("showlogin"));
+    Route::post('login',[UserControllerFE::class,'Login'])->name(('loginUser'));
+    Route::get('showregister',[UserControllerFE::class,'showRegister'])->name(("ShowRegister"));
+    Route::post('register',[UserControllerFE::class,'register'])->name(('register'));
+    Route::get('vertified/{user}/{token}',[UserControllerFE::class,'vertified'])->name(("vertified"));   
+    Route::get('forgot-password',[UserControllerFE::class,'show_forgot_password'])->name(("forgot-password"));
+    Route::post('forgot-password',[UserControllerFE::class,'forgot_password'])->name(("forgotPass"));  
+    Route::get('get-password/{user}/{token}',[UserControllerFE::class,'get_password'])->name(("getpassword"));
+    Route::post('get-password/{user}/{token}',[UserControllerFE::class,'post_password'])->name(("postpassword"));   
+    Route::get('logout',[UserControllerFE::class,'logout'])->name(("logout"));
+    Route::get('send_mail',[UserControllerFE::class,'send_mail']);
+
+    Route::get('profile',[UserControllerFE::class,'profile'])->name(("profile"));
+
+    Route::get('home',[UserControllerFE::class,'Dashboard']);//->middleware('isLoggedIn');
+
+
+    Route::get('cart',[CustomerController::class,'cart'])->name('cart');
+    Route::get('product/{idcate?}/{keyword?}',[CustomerController::class,'product'])->name('product');
+    Route::prefix('product-detail')->group(function (){
+        Route::get('{product_id}',[CustomerController::class,'product_detail']);
+       // Route::get('',[FrontEndController::class,'product_detail']);
+    });
+    Route::get('contact',[CustomerController::class,'contact'])->name('contact');
+
+    // Cart
+    Route::post('saveCart',[CartController::class,'save_cart']);
+    Route::get('showcart',[CartController::class,'show_cart']);
+    Route::get('delete-to-cart/{rowId}',[CartController::class,'delete_to_cart']);
+    Route::post('updateQty',[CartController::class,'update_cart_qty']);
+    //checkout
+    Route::get('check-login-checkout',[CheckoutController::class,'check_login_checkout']);
+    Route::post('save-checkout-cus',[CheckoutController::class,'save_checkout_cus']);
+    Route::get('checkout',[CheckoutController::class,'show_checkout']);
+
 });
 
-Route::get('/home', function () {
-    return view('welcome');
-});
-Route::get('/cart', function () {
-    return view('cart');
-});
 
-    ##Admin
+//
+//#SEND MAIL 
+
+//
+//
+  ##Admin
     Route::get('/admin/login',[LoginController::class,'index'])->name('login');
     Route::post('/admin/admin_login',[LoginController::class, 'store']);
 
