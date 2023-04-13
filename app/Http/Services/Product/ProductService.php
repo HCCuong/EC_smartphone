@@ -148,4 +148,59 @@ class ProductService
     public function getDetail($request){
         return ProductDetail::where('pro_id', $request)->first();
     }
+
+    public function lastProduct()
+    {
+        return Product::latest()->take(3)->get();
+    }
+    public function rateProduct()
+    {
+        return Product::inRandomOrder()->take(3)->get();
+    }
+    public function reviewProduct()
+    {
+        return Product::inRandomOrder()->take(3)->get();
+    }
+    public function relatedProduct()
+    {
+        return Product::inRandomOrder()->take(3)->get();
+    }
+
+    public function fill($request)
+    {
+        
+        if($request->keyword){
+            //console.log($request->keyword);
+            if($request->sort){
+                $prod =Product::where('slug','like','%'.$request->keyword.'%')  
+                ->orWhere('name','like','%'.$request->keyword.'%')
+                ->orderBy($request->sort)
+                ->paginate(6);
+            }
+            else{
+                $prod =Product::where('slug','like','%'.$request->keyword.'%')  
+                ->orWhere('name','like','%'.$request->keyword.'%')
+                ->paginate(6);
+            }
+            
+        }
+        else if($request->cateID){
+            if($request->sort){
+                $prod =Product::where('cate_id',$request->cateID)->orderBy($request->sort)->paginate(6);
+            }
+            else{
+                $prod =Product::where('cate_id',$request->cateID)->paginate(6);
+            }
+        }
+        else {
+            if($request->sort){
+                $prod =Product::orderBy($request->sort)->paginate(6);
+            }
+            else{
+                $prod =Product::paginate(6);
+            }
+            
+        } 
+    }
+
 }

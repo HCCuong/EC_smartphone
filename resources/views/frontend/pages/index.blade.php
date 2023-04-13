@@ -13,7 +13,7 @@
                         <ul>
                             @foreach($categories as $key => $category)
                                 <li>
-                                    <a href>{{$category->name}}</a>
+                                    <a href="product?cateID={{$category->id}}">{{$category->name}}</a>
                                 </li>
                             @endforeach                        
                         </ul>
@@ -32,12 +32,13 @@
                                 <i class="fa fa-phone"></i>
                             </div>
                             <div class="hero__search__phone__text">
-                                <h5>+65 11.188.888</h5>
+                                <h5>+98 983 675 461</h5>
                                 <span>support 24/7 time</span>
                             </div>
                         </div>
                     </div>
-                    <div class="hero__item set-bg" data-setbg="{{('public/frontend/img/hero/banner.jpg')}}">
+                    <div class="hero__item set-bg" data-setbg="{{('public/frontend/img/hero/banner-1.jpg')}}">
+                    <!--<div class="hero__item set-bg" data-setbg="public/frontend/{{$banner[2]->url}}"> -->
                         <div class="hero__text">
                             <span>FRUIT FRESH</span>
                             <h2>Vegetable <br />100% Organic</h2>
@@ -70,7 +71,7 @@
     <!-- Categories Section End -->
 
     <!-- Featured Section Begin -->
-    <section class="featured spad">
+    <!-- <section class="featured spad">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -96,7 +97,6 @@
                             </ul>
                         </div>
                         <div class="featured__item__text">
-                            <!-- <h6><a href="/product-detail/@{{pro.id}}">@{{pro.name}}</a></h6> -->
                             <h6><a href="/product-detail">@{{pro.name}}</a></h6>
                             <h5>@{{pro.price}}đ</h5>
                         </div>
@@ -105,7 +105,7 @@
                 
             </div>
         </div>
-    </section>
+    </section>-->
     <!-- Featured Section End -->
 
     <!-- Banner Begin -->
@@ -135,34 +135,18 @@
                     <div class="latest-product__text">
                         <h4>Latest Products</h4>
                         <div class="latest-product__slider owl-carousel">
-                            <div class="latest-prdouct__slider__item" ng-repeat="pro in productsLast">
+                            <div class="latest-prdouct__slider__item">
+                                @foreach($latests as $key => $latest)
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="@{{pro[0].images}}" alt="">
+                                        <img src="{{$latest->images}}" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
-                                        <h6>@{{pro[0].name}}</h6>
-                                        <span>@{{pro[0].price}}đ</span>
+                                        <h6>{{$latest->name}}</h6>
+                                        <span>{{$latest->price}} vnd</span>
                                     </div>
                                 </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="@{{pro[1].images}}" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>@{{pro[1].name}}</h6>
-                                        <span>@{{pro[1].price}}đ</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="@{{pro[2].images}}" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>@{{pro[2].name}}</h6>
-                                        <span>@{{pro[2].price}}đ</span>
-                                    </div>
-                                </a>
+                                @endforeach
                             </div>
                             
                         </div>
@@ -172,34 +156,18 @@
                     <div class="latest-product__text">
                         <h4>Top Rated Products</h4>
                         <div class="latest-product__slider owl-carousel">
-                            <div class="latest-prdouct__slider__item" ng-repeat="pro in productsRate">
+                            <div class="latest-prdouct__slider__item">
+                                @foreach($topRateds as $key => $topRated)
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="@{{pro[0].images}}" alt="">
+                                        <img src="{{$topRated->images}}" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
-                                        <h6>@{{pro[0].name}}</h6>
-                                        <span>@{{pro[0].price}}đ</span>
+                                        <h6>{{$topRated->name}}</h6>
+                                        <span>{{$topRated->price}}đ</span>
                                     </div>
                                 </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="@{{pro[1].images}}" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>@{{pro[1].name}}</h6>
-                                        <span>@{{pro[1].price}}đ</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="@{{pro[2].images}}" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>@{{pro[2].name}}</h6>
-                                        <span>@{{pro[2].price}}đ</span>
-                                    </div>
-                                </a>
+                                @endforeach
                             </div>
                             
                         </div>
@@ -209,36 +177,19 @@
                     <div class="latest-product__text">
                         <h4>Review Products</h4>
                         <div class="latest-product__slider owl-carousel">
-                            <div class="latest-prdouct__slider__item" ng-repeat="pro in productsReview">
+                            <div class="latest-prdouct__slider__item">
+                                @foreach($reviews as $key => $review)
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="@{{pro[0].images}}" alt="">
+                                        <img src="{{$review->images}}" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
-                                        <h6>@{{pro[0].name}}</h6>
-                                        <span>@{{pro[0].price}}đ</span>
+                                        <h6>{{$review->name}}</h6>
+                                        <span>{{$review->price}}đ</span>
                                     </div>
                                 </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="@{{pro[1].images}}" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>@{{pro[1].name}}</h6>
-                                        <span>@{{pro[1].price}}đ</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="@{{pro[2].images}}" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>@{{pro[2].name}}</h6>
-                                        <span>@{{pro[2].price}}đ</span>
-                                    </div>
-                                </a>
-                            </div>
-                            
+                                @endforeach
+                            </div>                           
                         </div>
                     </div>
                 </div>
