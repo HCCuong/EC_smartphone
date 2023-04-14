@@ -40,13 +40,28 @@ class CustomerController extends Controller
     public function product(Request $request){
         if($request->keyword)
         {
-            return view('frontend.pages.shop-product',['keyWord'=>$request->keyword,'cateID'=>'']);
+            return view('frontend.pages.shop-product', [
+                'keyWord'=>$request->keyword,
+                'cateID'=>'',
+                'categories'=>$this->categoryService->getAll(),
+                'latests'=>$this->productService->lastProduct()
+            ]);
         }
         if($request->cateID)
         {
-            return view('frontend.pages.shop-product',['keyWord'=>'','cateID'=>$request->cateID]);
+            return view('frontend.pages.shop-product', [
+                'keyWord'=>'',
+                'cateID'=>$request->cateID,
+                'categories'=>$this->categoryService->getAll(),
+                'latests'=>$this->productService->lastProduct()
+            ]);
         }
-        return view('frontend.pages.shop-product',['keyWord'=>'','cateID'=>'']);
+        return view('frontend.pages.shop-product', [
+            'keyWord'=>'',
+            'cateID'=>'',
+            'categories'=>$this->categoryService->getAll(),
+            'latests'=>$this->productService->lastProduct()
+        ]);
 
     }
 

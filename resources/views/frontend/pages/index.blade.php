@@ -13,7 +13,7 @@
                         <ul>
                             @foreach($categories as $key => $category)
                                 <li>
-                                    <a href="product?cateID={{$category->id}}">{{$category->name}}</a>
+                                    <a href="{{ url('product?cateID='.$category->id) }}">{{$category->name}}</a>
                                 </li>
                             @endforeach                        
                         </ul>
@@ -37,13 +37,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="hero__item set-bg" data-setbg="{{('public/frontend/img/hero/banner-1.jpg')}}">
-                    <!--<div class="hero__item set-bg" data-setbg="public/frontend/{{$banner[2]->url}}"> -->
+                    <!-- <div class="hero__item set-bg" data-setbg="{{('public/frontend/img/hero/banner-1.jpg')}}"> -->
+                    <div class="hero__item set-bg" data-setbg="../public/frontend/{{$banner[2]->url}}">
                         <div class="hero__text">
-                            <span>FRUIT FRESH</span>
+                            <!--<span>FRUIT FRESH</span>
                             <h2>Vegetable <br />100% Organic</h2>
-                            <p>Free Pickup and Delivery Available</p>
-                            <a href="product" class="primary-btn">SHOP NOW</a>
+                            <p>Free Pickup and Delivery Available</p>-->
+                            <a href="{{ url('/product') }}" class="primary-btn">SHOP NOW</a>
                         </div>
                     </div>
                 </div>
@@ -109,17 +109,18 @@
     <!-- Featured Section End -->
 
     <!-- Banner Begin -->
-    <div class="banner">
+    <div class="banner mt-4">
         <div class="container">
+            <p>Chương trình khuyến mãi</p>
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="banner__pic" ng-repeat="banner in banners" ng-if="banner.name=='banner2'" ng-if="banner.status==1">
-                        <img src="@{{banner.url}}" alt="">
+                    <div class="banner__pic">
+                        <img src="../public/frontend/{{$banner[0]->url}}" alt="">
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="banner__pic" ng-repeat="banner in banners" ng-if="banner.name=='banner3'" ng-if="banner.status==1">
-                        <img src="@{{banner.url}}" alt="">
+                    <div class="banner__pic">
+                        <img src="../public/frontend/{{$banner[1]->url}}" alt="">
                     </div>
                 </div>
             </div>

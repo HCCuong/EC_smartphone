@@ -32,7 +32,7 @@
     <!-- Hero Section End -->
 
     <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="img/product/banner.jpg">
+    <!--<section class="breadcrumb-section set-bg" data-setbg="img/product/banner.jpg">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -46,7 +46,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section>-->
     <!-- Breadcrumb Section End -->
 
     <!-- Product Section Begin -->
@@ -60,8 +60,12 @@
                             <ul>
                                 <li><a href ng-click="cateID('')">All</a></li>  
                             </ul>
-                            <ul ng-repeat="cate in categories" ng-if="cate.parent_id!=0">
-                                <li><a href ng-click="cateID(cate.id)">@{{cate.name}}</a></li>   
+                            <ul>
+                                @foreach($categories as $key => $category)
+                                    <li>
+                                        <a href="{{ url('product?cateID='.$category->id) }}">{{$category->name}}</a>
+                                    </li>
+                                @endforeach   
                             </ul>
                         </div>
                         <div class="sidebar__item">
@@ -157,34 +161,18 @@
                             <div class="latest-product__text">
                                 <h4>Latest Products</h4>
                                 <div class="latest-product__slider owl-carousel">
-                                    <div class="latest-prdouct__slider__item" ng-repeat="pro in productsLast">
+                                    <div class="latest-prdouct__slider__item">
+                                    @foreach($latests as $key => $latest)
                                         <a href="#" class="latest-product__item">
                                             <div class="latest-product__item__pic">
-                                                <img src="@{{pro[0].images}}" alt="">
+                                                <img src="{{$latest->images}}" alt="">
                                             </div>
                                             <div class="latest-product__item__text">
-                                                <h6>@{{pro[0].name}}</h6>
-                                                <span>@{{pro[0].price}}đ</span>
+                                                <h6>{{$latest->name}}</h6>
+                                                <span>{{$latest->price}} vnd</span>
                                             </div>
                                         </a>
-                                        <a href="#" class="latest-product__item">
-                                            <div class="latest-product__item__pic">
-                                                <img src="@{{pro[1].images}}" alt="">
-                                            </div>
-                                            <div class="latest-product__item__text">
-                                                <h6>@{{pro[1].name}}</h6>
-                                                <span>@{{pro[1].price}}đ</span>
-                                            </div>
-                                        </a>
-                                        <a href="#" class="latest-product__item">
-                                            <div class="latest-product__item__pic">
-                                                <img src="@{{pro[2].images}}" alt="">
-                                            </div>
-                                            <div class="latest-product__item__text">
-                                                <h6>@{{pro[2].name}}</h6>
-                                                <span>@{{pro[2].price}}đ</span>
-                                            </div>
-                                        </a>
+                                    @endforeach
                                     </div>    
                                 </div>
                             </div>
