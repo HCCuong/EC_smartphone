@@ -11,14 +11,14 @@
 
     <!-- Css Styles -->
     <base href="frontend/">
-    <link rel="stylesheet" href="../public/frontend/css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="../public/frontend/css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="../public/frontend/css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="../public/frontend/css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="../public/frontend/css/jquery-ui.min.css" type="text/css">
-    <link rel="stylesheet" href="../public/frontend/css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="../public/frontend/css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="../public/frontend/css/style.css" type="text/css">
+    <link rel="stylesheet" href="../{{$ur}}public/frontend/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="../{{$ur}}public/frontend/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="../{{$ur}}public/frontend/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="../{{$ur}}public/frontend/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="../{{$ur}}public/frontend/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="../{{$ur}}public/frontend/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="../{{$ur}}public/frontend/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="../{{$ur}}public/frontend/css/style.css" type="text/css">
     
 
     <!-- Css Styles -->
@@ -27,6 +27,6 @@
 
     <!--angularjs-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.9/angular.min.js"></script>
-    <script src="../public/frontend/js/app.js"></script>
+    <script src="../{{$ur}}public/frontend/js/app.js"></script>
 
     <!-- ../public/frontend/ -->

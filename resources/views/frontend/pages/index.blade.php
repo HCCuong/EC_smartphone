@@ -138,7 +138,7 @@
                         <div class="latest-product__slider owl-carousel">
                             <div class="latest-prdouct__slider__item">
                                 @foreach($latests as $key => $latest)
-                                <a href="#" class="latest-product__item">
+                                <a href="{{ url('product-detail/'.$latest->id) }}" class="latest-product__item">
                                     <div class="latest-product__item__pic">
                                         <img src="{{$latest->images}}" alt="">
                                     </div>

@@ -67,19 +67,19 @@
     <!-- Footer Section End -->
 
     <!--JS-->
-    <script src="../public/frontend/js/jquery-3.3.1.min.js"></script>
-    <script src="../public/frontend/js/bootstrap.min.js"></script>
-    <script src="../public/frontend/js/jquery.nice-select.min.js"></script>
-    <script src="../public/frontend/js/jquery-ui.min.js"></script>
-    <script src="../public/frontend/js/jquery.slicknav.js"></script>
-    <script src="../public/frontend/js/mixitup.min.js"></script>
-    <script src="../public/frontend/js/owl.carousel.min.js"></script>
-    <script src="../public/frontend/js/main.js"></script>
+    <script src="../{{$ur}}public/frontend/js/jquery-3.3.1.min.js"></script>
+    <script src="../{{$ur}}public/frontend/js/bootstrap.min.js"></script>
+    <script src="../{{$ur}}public/frontend/js/jquery.nice-select.min.js"></script>
+    <script src="../{{$ur}}public/frontend/js/jquery-ui.min.js"></script>
+    <script src="../{{$ur}}public/frontend/js/jquery.slicknav.js"></script>
+    <script src="../{{$ur}}public/frontend/js/mixitup.min.js"></script>
+    <script src="../{{$ur}}public/frontend/js/owl.carousel.min.js"></script>
+    <script src="../{{$ur}}public/frontend/js/main.js"></script>
     
     <script>
         setTimeout(function(){
 
-        $.getScript("../public/frontend/js/slider.js");
+        $.getScript("../{{$ur}}public/frontend/js/slider.js");
         },  
         2000);
 

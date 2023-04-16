@@ -9,6 +9,7 @@ use App\Http\Services\Category\CategoryService;
 use App\Http\Services\Banner\BannerService;
 use App\Http\Services\Product\ProductService;
 use App\Models\Category;
+use App\Models\Product;
 
 
 class CustomerController extends Controller
@@ -30,11 +31,14 @@ class CustomerController extends Controller
             'latests'=>$this->productService->lastProduct(),
             'topRateds'=>$this->productService->rateProduct(),
             'reviews'=>$this->productService->reviewProduct(),
+            'ur'=>''
         ]);
     }
 
     public function cart(){
-        return view('frontend.pages.shop-cart');
+        return view('frontend.pages.shop-cart',[
+            'ur'=>''
+        ]);
     }
 
     public function product(Request $request){
@@ -44,7 +48,8 @@ class CustomerController extends Controller
                 'keyWord'=>$request->keyword,
                 'cateID'=>'',
                 'categories'=>$this->categoryService->getAll(),
-                'latests'=>$this->productService->lastProduct()
+                'latests'=>$this->productService->lastProduct(),
+                'ur'=>''
             ]);
         }
         if($request->cateID)
@@ -53,24 +58,35 @@ class CustomerController extends Controller
                 'keyWord'=>'',
                 'cateID'=>$request->cateID,
                 'categories'=>$this->categoryService->getAll(),
-                'latests'=>$this->productService->lastProduct()
+                'latests'=>$this->productService->lastProduct(),
+                'ur'=>''
             ]);
         }
         return view('frontend.pages.shop-product', [
             'keyWord'=>'',
             'cateID'=>'',
             'categories'=>$this->categoryService->getAll(),
-            'latests'=>$this->productService->lastProduct()
+            'latests'=>$this->productService->lastProduct(),
+            'ur'=>''
         ]);
 
     }
 
-    public function product_detail($idProduct){
+    public function product_detail(Product $product){
         //$product=Product::find($idProduct);
-        return view('frontend.pages.shop-product-detail',['productID'=>$idProduct]);
+        return view('frontend.pages.shop-product-detail', [
+            'product'=>$product,
+            'product_detail'=>$this->productService->getDetail($product->id),
+            'categories'=>$this->categoryService->getAll(),
+            'banner'=>$this->bannerService->getAll(),
+            'relate_products'=>$this->productService->relatedProduct(),
+            'ur'=>'../'
+        ]);
     }
     
     public function contact(){
-        return view('frontend.pages.shop-contact');
+        return view('frontend.pages.shop-contact', [
+            'ur'=>''
+        ]);
     }
 }

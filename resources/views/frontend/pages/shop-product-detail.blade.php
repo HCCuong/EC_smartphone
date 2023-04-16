@@ -1,7 +1,7 @@
 @extends('FrontEnd.layouts.master')
 @section('main-content')
 <!-- Hero Section Begin -->
-<section class="hero hero-normal">
+<section class="hero">
         <div class="container">
             <div class="row">
                 <div class="col-lg-3">
@@ -10,20 +10,21 @@
                             <i class="fa fa-bars"></i>
                             <span>All departments</span>
                         </div>
-                        <ul ng-repeat="cat in categories" ng-if="cat.parent_id==0">
-                            <li>
-                                <a href>@{{cat.name}}</a>
-                                <li ng-repeat="cate in categories" ng-if="cate.parent_id==cat.id"><a href="{{route('product')}}" ng-click="cateID(cate.id)"> -- @{{cate.name}}</a></li>
-                            </li>
+                        <ul>
+                            @foreach($categories as $key => $category)
+                                <li>
+                                    <a href="{{ url('product?cateID='.$category->id) }}">{{$category->name}}</a>
+                                </li>
+                            @endforeach                        
                         </ul>
                     </div>
                 </div>
                 <div class="col-lg-9">
                     <div class="hero__search">
                         <div class="hero__search__form">
-                            <form action="{{route('product')}}">
-                                <input type="text" placeholder="What do yo u need?" ng-model="key">
-                                <button type="submit" ng-click="keyword(key)" class="site-btn">SEARCH</button>
+                            <form action="">
+                                <input type="text" placeholder="What do you need?" ng-model="key">
+                                <button type="submit" class="site-btn">SEARCH</button>
                             </form>
                         </div>
                         <div class="hero__search__phone">
@@ -31,9 +32,18 @@
                                 <i class="fa fa-phone"></i>
                             </div>
                             <div class="hero__search__phone__text">
-                                <h5>+65 11.188.888</h5>
+                                <h5>+98 983 675 461</h5>
                                 <span>support 24/7 time</span>
                             </div>
+                        </div>
+                    </div>
+                    <!-- <div class="hero__item set-bg" data-setbg="{{('public/frontend/img/hero/banner-1.jpg')}}"> -->
+                    <div class="hero__item set-bg" data-setbg="../{{$ur}}public/frontend/{{$banner[2]->url}}">
+                        <div class="hero__text">
+                            <!--<span>FRUIT FRESH</span>
+                            <h2>Vegetable <br />100% Organic</h2>
+                            <p>Free Pickup and Delivery Available</p>-->
+                            <a href="{{ url('/product') }}" class="primary-btn">SHOP NOW</a>
                         </div>
                     </div>
                 </div>
@@ -43,7 +53,7 @@
     <!-- Hero Section End -->
 
     <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="img/product/banner.jpg">
+    <!--<section class="breadcrumb-section set-bg" data-setbg="../{{$ur}}public/frontend/img/product/banner.jpg">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -59,6 +69,7 @@
             </div>
         </div>
     </section>
+-->
     <!-- Breadcrumb Section End -->
 
     <!-- Product Details Section Begin -->
@@ -69,17 +80,17 @@
                     <div class="product__details__pic">
                         <div class="product__details__pic__item">
                             <img class="product__details__pic__item--large"
-                                src="img/product/details/product-details-1.jpg" alt="">
+                                src="../{{$ur}}public/frontend/img/product/details/product-details-1.jpg" alt="">
                         </div>
                         <div class="product__details__pic__slider owl-carousel">
-                            <img data-imgbigurl="img/product/details/product-details-2.jpg"
-                                src="img/product/details/thumb-1.jpg" alt="">
+                            <img data-imgbigurl="../{{$ur}}public/frontend/img/product/details/product-details-2.jpg"
+                                src="../{{$ur}}public/frontend/img/product/details/thumb-1.jpg" alt="">
                             <img data-imgbigurl="img/product/details/product-details-3.jpg"
-                                src="img/product/details/thumb-2.jpg" alt="">
+                                src="../{{$ur}}public/frontend/img/product/details/thumb-2.jpg" alt="">
                             <img data-imgbigurl="img/product/details/product-details-5.jpg"
-                                src="img/product/details/thumb-3.jpg" alt="">
+                                src="../{{$ur}}public/frontend/img/product/details/thumb-3.jpg" alt="">
                             <img data-imgbigurl="img/product/details/product-details-4.jpg"
-                                src="img/product/details/thumb-4.jpg" alt="">
+                                src="../{{$ur}}public/frontend/img/product/details/thumb-4.jpg" alt="">
                         </div>
                     </div>
                 </div>
@@ -218,9 +229,10 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-3 col-md-4 col-sm-6" ng-repeat="pro in productsRelated">
+                @foreach($relate_products as $key => $relate_product)
+                <div class="col-lg-4 col-md-4 col-sm-6">
                     <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="@{{pro.images}}">
+                        <div class="product__item__pic set-bg" data-setbg="{{$relate_product->images}}">
                             <ul class="product__item__pic__hover">
                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -228,11 +240,12 @@
                             </ul>
                         </div>
                         <div class="product__item__text">
-                            <h6><a href="#">@{{pro.name}}</a></h6>
-                            <h5>@{{pro.price}}đ</h5>
+                            <h6><a href="{{ url('product-detail/'.$relate_product->id) }}">{{$relate_product->name}}</a></h6>
+                            <h5>{{$relate_product->price}}đ</h5>
                         </div>
                     </div>
                 </div>
+                @endforeach
             </div>
         </div>
     </section>
