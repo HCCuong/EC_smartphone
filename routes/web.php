@@ -38,7 +38,7 @@ Route::prefix('/')->group(function (){
 
 
     Route::get('cart',[CustomerController::class,'cart'])->name('cart');
-    Route::get('product/{idcate?}/{keyword?}',[CustomerController::class,'product'])->name('product');
+    Route::get('product/{cateID?}/{keyword?}',[CustomerController::class,'product'])->name('product');
     Route::prefix('product-detail')->group(function (){
         Route::get('{product}',[CustomerController::class,'product_detail']);
        // Route::get('',[FrontEndController::class,'product_detail']);

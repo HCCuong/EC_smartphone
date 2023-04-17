@@ -49,6 +49,8 @@ class CustomerController extends Controller
                 'cateID'=>'',
                 'categories'=>$this->categoryService->getAll(),
                 'latests'=>$this->productService->lastProduct(),
+                'products'=>$this->productService->fill($request),
+                'product_sales'=>$this->productService->getProductSale(),
                 'ur'=>''
             ]);
         }
@@ -59,6 +61,8 @@ class CustomerController extends Controller
                 'cateID'=>$request->cateID,
                 'categories'=>$this->categoryService->getAll(),
                 'latests'=>$this->productService->lastProduct(),
+                'products'=>$this->productService->getByCategory($request->cateID),
+                'product_sales'=>$this->productService->getProductSale(),
                 'ur'=>''
             ]);
         }
@@ -67,6 +71,8 @@ class CustomerController extends Controller
             'cateID'=>'',
             'categories'=>$this->categoryService->getAll(),
             'latests'=>$this->productService->lastProduct(),
+            'products'=>$this->productService->getAll(),
+            'product_sales'=>$this->productService->getProductSale(),
             'ur'=>''
         ]);
 

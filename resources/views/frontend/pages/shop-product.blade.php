@@ -10,9 +10,9 @@
                 <div class="col-lg-9">
                     <div class="hero__search">
                         <div class="hero__search__form">
-                            <form >
-                                <input type="text" placeholder="What do yo u need?" ng-model="key">
-                                <button type="submit" ng-click="keyword(key)" class="site-btn">SEARCH</button>
+                            <form action="{{ url('product') }}">
+                                <input type="text" name="keyword" placeholder="What do yo u need?">
+                                <button type="submit" class="site-btn">SEARCH</button>
                             </form>
                         </div>
                         <div class="hero__search__phone">
@@ -58,7 +58,7 @@
                         <div class="sidebar__item">
                             <h4>Categories</h4>
                             <ul>
-                                <li><a href ng-click="cateID('')">All</a></li>  
+                                <li><a href="{{ url('product') }}">All</a></li>  
                             </ul>
                             <ul>
                                 @foreach($categories as $key => $category)
@@ -163,13 +163,13 @@
                                 <div class="latest-product__slider owl-carousel">
                                     <div class="latest-prdouct__slider__item">
                                     @foreach($latests as $key => $latest)
-                                        <a href="#" class="latest-product__item">
+                                        <a href="{{ url('product-detail/'.$latest->id) }}" class="latest-product__item">
                                             <div class="latest-product__item__pic">
                                                 <img src="{{$latest->images}}" alt="">
                                             </div>
                                             <div class="latest-product__item__text">
                                                 <h6>{{$latest->name}}</h6>
-                                                <span>{{$latest->price}} vnd</span>
+                                                <span>{{number_format($latest->price)}} vnd</span>
                                             </div>
                                         </a>
                                     @endforeach
@@ -186,11 +186,12 @@
                         </div>
                         <div class="row">
                             <div class="product__discount__slider owl-carousel">
-                                <div class="col-lg-4" ng-repeat="pro in productsAll" ng-if="pro.price_sale!=null">
+                                @foreach($product_sales as $key => $product_sale)
+                                <div class="col-lg-4">
                                     <div class="product__discount__item">
                                         <div class="product__discount__item__pic set-bg"
-                                            data-setbg="@{{pro.images}}">
-                                            <div class="product__discount__percent">@{{100-(pro.price_sale/pro.price*100)| number:0}}%</div>
+                                            data-setbg="{{$product_sale->images}}">
+                                            <div class="product__discount__percent"> {{ceil(100-($product_sale->price_sale/$product_sale->price*100))}}%</div>
                                             <ul class="product__item__pic__hover">
                                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -198,12 +199,13 @@
                                             </ul>
                                         </div>
                                         <div class="product__discount__item__text">
-                                            <span>Iphone</span>
-                                            <h5><a href="#">@{{pro.name}}</a></h5>
-                                            <div class="product__item__price">@{{pro.price}}đ <span>@{{pro.price_sale}}đ</span></div>
+                                            <span>{{$product_sale->category->name}}</span>
+                                            <h5><a href="{{ url('product-detail/'.$product_sale->id) }}">{{$product_sale->name}}</a></h5>
+                                            <div class="product__item__price">{{number_format($product_sale->price)}}đ <span>{{number_format($product_sale->price_sale)}} đ</span></div>
                                         </div>
                                     </div>
-                                </div>                              
+                                </div> 
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -234,15 +236,16 @@
                             </div>
                             <div class="col-lg-5 col-md-4">
                                 <div class="filter__found">
-                                    <h6><span>@{{totalProduct}}</span> Products found - Page: <span>@{{currentPage}}</span>/<span>@{{totalPages}}</span></h6>
+                                    <h6><span></span> Products found</h6>
                                 </div>
                             </div>                          
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-4 col-md-6 col-sm-6" ng-repeat="pro in products">
+                        @foreach($products as $key => $product)
+                        <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="product__item">
-                                <div class="product__item__pic set-bg" data-setbg="@{{pro.images}}">
+                                <div class="product__item__pic set-bg" data-setbg="{{$product->images}}">
                                     <ul class="product__item__pic__hover">
                                         <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                         <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -250,12 +253,13 @@
                                     </ul>
                                 </div>
                                 <div class="product__item__text">
-                                    <h6><a href="#">@{{pro.name}}</a></h6>
-                                    <h5>@{{pro.price}}đ</h5>
+                                    <h6><a href="{{ url('product-detail/'.$product->id) }}">{{$product->name}}</a></h6>
+                                    <h5>{{number_format($product->price)}} vnd</h5>
                                 </div>
                             </div>
                         </div>
-                        
+                        @endforeach
+                        {{ $products->links() }}                     
                     </div>
                     <div class="row">
                         <div class="col-md-6 col-md-push-4 product__pagination">

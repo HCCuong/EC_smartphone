@@ -36,6 +36,12 @@ class ProductService
         //return Product::orderbyDesc('id', '>', 100)->cursorPaginate(15);
     }
 
+    public function getAll()
+    {
+        return Product::with('category')->orderbyDesc('id', 0)->simplePaginate(9);
+        //return Product::orderbyDesc('id', '>', 100)->cursorPaginate(15);
+    }
+
     protected function isValidPrice($request){
         if ($request->input('price') != 0 && $request->input('price_sale') != 0
         && $request->input('price_sale') <= $request->input('price')){
@@ -166,41 +172,28 @@ class ProductService
         return Product::inRandomOrder()->take(3)->get();
     }
 
-    public function fill($request)
-    {
-        
-        if($request->keyword){
-            //console.log($request->keyword);
-            if($request->sort){
-                $prod =Product::where('slug','like','%'.$request->keyword.'%')  
-                ->orWhere('name','like','%'.$request->keyword.'%')
-                ->orderBy($request->sort)
-                ->paginate(6);
-            }
-            else{
-                $prod =Product::where('slug','like','%'.$request->keyword.'%')  
-                ->orWhere('name','like','%'.$request->keyword.'%')
-                ->paginate(6);
-            }
-            
-        }
-        else if($request->cateID){
-            if($request->sort){
-                $prod =Product::where('cate_id',$request->cateID)->orderBy($request->sort)->paginate(6);
-            }
-            else{
-                $prod =Product::where('cate_id',$request->cateID)->paginate(6);
-            }
-        }
-        else {
-            if($request->sort){
-                $prod =Product::orderBy($request->sort)->paginate(6);
-            }
-            else{
-                $prod =Product::paginate(6);
-            }
-            
-        } 
+    public function getByCategory($request){
+        return Product::with('category')->where('cate_id', $request)->simplePaginate(9);
     }
 
+    public function getProductSale(){
+        return Product::with('category')->where('price_sale', '<>', NULL)->get();
+    }
+
+
+    public function fill($request)
+    {
+        //console.log($request->keyword);
+        if($request->sort){
+            return Product::where('slug','like','%'.$request->keyword.'%')  
+            ->orWhere('name','like','%'.$request->keyword.'%')
+            ->orderBy('name',$request->sort)
+            ->simplePaginate(9);
+        }
+        else{
+            return Product::where('slug','like','%'.$request->keyword.'%')  
+            ->orWhere('name','like','%'.$request->keyword.'%')
+            ->simplePaginate(9);
+        }         
+    }
 }
