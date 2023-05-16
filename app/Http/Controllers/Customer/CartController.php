@@ -4,14 +4,41 @@ namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Services\Order\OrderService;
+use App\Http\Services\Order\OrderDetailService;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Session;
 use DB;
-use Session;
+#use Session;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
 use Cart;
-session_start();
+#session_start();
 class CartController extends Controller
 {
+
+    protected $orderService;
+    protected $orderDetailService;
+    public function __construct(OrderService $orderService, OrderDetailService $orderDetailService){
+        $this->orderService = $orderService;
+        $this->orderDetailService = $orderDetailService;
+    }
+    public function cart(){
+        if(Session::has('LoginID')){
+            $id = Session::get('LoginID');
+            $order = $this->orderService->getOrderByUser($id);
+            //dd($order->id);
+            return view('frontend.pages.shop-cart',[
+                'order'=>$order,
+                'details'=> $this->orderDetailService->get($order->id),
+                'ur'=>'',
+            ]); 
+        }
+        else{
+            return redirect("/");
+        }
+        
+    }
     public function save_cart(Request $request){
         $productid=$request->productid_hidden;
         $quantity=$request->qty;
@@ -46,9 +73,6 @@ class CartController extends Controller
         return Redirect::to('showcart');
     }
 
-    public function show_cart(){
-        return view('frontend.pages.shop-cart');
-    }
     public function delete_to_cart($rowId){
         Cart::update($rowId,0);
         return view('frontend.pages.shop-cart');

@@ -35,11 +35,6 @@ class CustomerController extends Controller
         ]);
     }
 
-    public function cart(){
-        return view('frontend.pages.shop-cart',[
-            'ur'=>''
-        ]);
-    }
 
     public function product(Request $request){
         if($request->keyword)

@@ -159,7 +159,7 @@
                         <div class="latest-product__slider owl-carousel">
                             <div class="latest-prdouct__slider__item">
                                 @foreach($topRateds as $key => $topRated)
-                                <a href="#" class="latest-product__item">
+                                <a href="{{ url('product-detail/'.$topRated->id) }}" class="latest-product__item">
                                     <div class="latest-product__item__pic">
                                         <img src="{{$topRated->images}}" alt="">
                                     </div>
@@ -180,7 +180,7 @@
                         <div class="latest-product__slider owl-carousel">
                             <div class="latest-prdouct__slider__item">
                                 @foreach($reviews as $key => $review)
-                                <a href="#" class="latest-product__item">
+                                <a href="{{ url('product-detail/'.$review->id) }}" class="latest-product__item">
                                     <div class="latest-product__item__pic">
                                         <img src="{{$review->images}}" alt="">
                                     </div>

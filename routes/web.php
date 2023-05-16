@@ -37,7 +37,7 @@ Route::prefix('/')->group(function (){
     Route::get('home',[UserControllerFE::class,'Dashboard']);//->middleware('isLoggedIn');
 
 
-    Route::get('cart',[CustomerController::class,'cart'])->name('cart');
+    
     Route::get('product/{cateID?}/{keyword?}',[CustomerController::class,'product'])->name('product');
     Route::prefix('product-detail')->group(function (){
         Route::get('{product}',[CustomerController::class,'product_detail']);
@@ -46,6 +46,7 @@ Route::prefix('/')->group(function (){
     Route::get('contact',[CustomerController::class,'contact'])->name('contact');
 
     // Cart
+    Route::get('cart',[CartController::class,'cart'])->name('cart');
     Route::post('saveCart',[CartController::class,'save_cart']);
     Route::get('showcart',[CartController::class,'show_cart']);
     Route::get('delete-to-cart/{rowId}',[CartController::class,'delete_to_cart']);

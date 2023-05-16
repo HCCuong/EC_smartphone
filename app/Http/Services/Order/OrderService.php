@@ -32,23 +32,21 @@ class OrderService
         return Order::with('user')->where('id', $request)->get();
     }
 
-    protected function isValidPrice($request){
-        if ($request->input('price') != 0 && $request->input('price_sale') != 0
-            && $request->input('price_sale') >= $request->input('price')){
-            Session::flash('error', 'Giá giảm phải nhỏ hơn giá gốc của sản phẩm !');
-            return false;
-        }
-
-        if ((int)$request->input('price') == 0 && $request->input('price_sale') != 0){
-            Session::flash('error', 'Vui lòng nhập giá gốc !');
-            return false;
-        }
-        return true;
+    public function getOrderByUser($id)
+    {
+        return Order::with('user')->where('status', 1)->Where('c_id', $id)->first();
+        //return Order::orderbyDesc('id', '>', 100)->cursorPaginate(10);
     }
 
+    
+    public function getOrderDoneByUser($id)
+    {
+        return Order::with('user')->where('status', '=', 3)->Where('c_id', $id)->simplePaginate(9);
+        //return Order::orderbyDesc('id', '>', 100)->cursorPaginate(10);
+    }
+
+
     public function insert($request){
-        $isValidPrice = $this->isValidPrice($request);
-        if (!$isValidPrice) return false;
         //dd($request->all());
         try {
             $request->except('_token');
@@ -72,16 +70,16 @@ class OrderService
         return true;
     }
 
-    public function update($product, $request){
+    public function update($order, $request){
         $isValidPrice = $this->isValidPrice($request);
         if (!$isValidPrice) return false;
         //dd($request->all());
         try {
-            $product->fill($request->input());
-            $product->save();
-            Session::flash('success', 'Câp nhật sản phẩm thành công');
+            $order->fill($request->input());
+            $order->save();
+            Session::flash('success', 'Câp nhật đơn hàng thành công');
         } catch (\Exception $err){
-            Session::flash('error', 'Cập nhật sản phẩm thất bại !');
+            Session::flash('error', 'Cập nhật đơn hàng thất bại !');
             \Log::info($err->getMessage());
             return false;
         }
