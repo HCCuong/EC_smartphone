@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Services\Order\OrderService;
+use App\Http\Services\Order\OrderDetailService;
+use App\Http\Services\Category\CategoryService;
+use Illuminate\Support\Facades\Session;
 use DB;
-use Session;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
 use Cart;
@@ -13,8 +16,30 @@ session_start();
 
 class CheckoutController extends Controller
 {
+    protected $orderService;
+    protected $orderDetailService;
+    protected $categoryService;
+    public function __construct(OrderService $orderService, OrderDetailService $orderDetailService, CategoryService $categoryService){
+        $this->orderService = $orderService;
+        $this->orderDetailService = $orderDetailService;
+        $this->categoryService = $categoryService;
+    }
     public function show_checkout(){
-        return view('frontend.pages.shop-checkout');
+        if(Session::has('LoginID')){
+            $id = Session::get('LoginID');
+            $order = $this->orderService->getOrderByUser($id);
+            //dd($order->id);
+            session()->put('orderID',$order->id); 
+            return view('frontend.pages.shop-checkout',[
+                'order'=>$order,
+                'details'=> $this->orderDetailService->get($order->id),
+                'categories'=>$this->categoryService->getAll(),
+                'ur'=>'',
+            ]); 
+        }
+        else{
+            return redirect("showlogin");
+        }
     }
     public function save_checkout_cus(Request $request){
         $data =array();
@@ -48,29 +73,30 @@ class CheckoutController extends Controller
 
         $data=[];
         if(Session::has('LoginID')){
-            if(Cart::count()==0){
-                $message = "Giỏ hàng trống!!";
-                echo "<script type='text/javascript'>
-                if(confirm('$message'))
-                {
-                    location.href = '/showcart';
+            if(Session::has('orderID')){
+                $amountproduct = $this->orderDetailService->count(Session::get('orderID'));
+                if ( $amountproduct <= 0 ) {
+                    $message = "Giỏ hàng trống!!";
+                    echo "<script type='text/javascript'>
+                        if(confirm('$message'))
+                        {
+                            location.href = '/showcart';
+                        }
+                        else{
+                            location.href = '/showcart';
+                        }
+                        </script>";
+                } else {
+                    return redirect('/checkout');
                 }
-                else{
-                    location.href = '/showcart';
-                }
-                </script>";
-                
             }
             else{
                 return redirect('/checkout');
-            }
-           
-            
+            }          
            
         }
         else{
-            return redirect('/showlogin');
-           
+            return redirect('/showlogin');          
             
         }   
     }

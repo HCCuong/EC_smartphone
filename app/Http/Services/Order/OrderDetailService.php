@@ -11,4 +11,8 @@ class OrderDetailService
     public function get($request){
         return OrderDetail::with('product')->where('o_id', $request)->get();
     }
+
+    public function count($request){
+        return OrderDetail::with('product')->where('o_id', $request)->count();
+    }
 }

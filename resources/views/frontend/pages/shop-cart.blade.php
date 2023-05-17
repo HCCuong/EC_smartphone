@@ -38,14 +38,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="hero__item set-bg" data-setbg="{{('public/frontend/img/hero/banner-1.jpg')}}"> -->
-                    <!--<div class="hero__item set-bg" data-setbg="../{{$ur}}public/frontend/{{$banner[2]->url}}">
-                        <div class="hero__text">
-                            <p>Free Pickup and Delivery Available</p>
-                            <a href="{{ url('/product') }}" class="primary-btn">SHOP NOW</a>
-                        </div>
-                    </div>
--->
                 </div>
             </div>
         </div>
@@ -95,11 +87,16 @@
                                             {{number_format($detail->product->price)}}
                                         </td>
                                         <td class="shoping__cart__quantity">
-                                            <div class="quantity">
-                                                <div class="pro-qty">
-                                                    <input type="text" value="{{$detail->qty}}">
+                                            <form action="{{ url('updateQty') }}" method="post" >
+                                                {{ csrf_field() }}
+                                                <div class="quantity">
+                                                    <div class="pro-qty">
+                                                        <input type="text" name="quantity_cart" value="{{$detail->qty}}">  
+                                                    </div>
+                                                    <input type="hidden" name="rowId_cart" value="{{$detail->rowId}}">
+                                                    <button type="submit" name="update_qty" value="cập nhật" class="primary-btn">Update</button>
                                                 </div>
-                                            </div>
+                                            </form>
                                         </td>
                                         <td class="shoping__cart__total">
                                             {{number_format($detail->product->price*$detail->qty)}}
@@ -140,7 +137,7 @@
                             <li>Subtotal <span>{{number_format($order->sub_total)}} VND</span></li>
                             <li>Total <span>{{number_format($order->total)}} VND</span></li>
                         </ul>
-                        <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
+                        <a href="{{ url('check-login-checkout') }}" class="primary-btn">PROCEED TO CHECKOUT</a>
                     </div>
                 </div>
             </div>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Services\Order\OrderService;
 use App\Http\Services\Order\OrderDetailService;
+use App\Http\Services\Category\CategoryService;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Session;
 use DB;
@@ -19,23 +20,27 @@ class CartController extends Controller
 
     protected $orderService;
     protected $orderDetailService;
-    public function __construct(OrderService $orderService, OrderDetailService $orderDetailService){
+    protected $categoryService;
+    public function __construct(OrderService $orderService, OrderDetailService $orderDetailService, CategoryService $categoryService){
         $this->orderService = $orderService;
         $this->orderDetailService = $orderDetailService;
+        $this->categoryService = $categoryService;
     }
     public function cart(){
         if(Session::has('LoginID')){
             $id = Session::get('LoginID');
             $order = $this->orderService->getOrderByUser($id);
             //dd($order->id);
+            session()->put('orderID',$order->id); 
             return view('frontend.pages.shop-cart',[
                 'order'=>$order,
                 'details'=> $this->orderDetailService->get($order->id),
+                'categories'=>$this->categoryService->getAll(),
                 'ur'=>'',
             ]); 
         }
         else{
-            return redirect("/");
+            return redirect("showlogin");
         }
         
     }

@@ -22,6 +22,7 @@ Route::prefix('/')->group(function (){
 
     Route::get('showlogin',[UserControllerFE::class,'showLogin'])->name(("showlogin"));
     Route::post('login',[UserControllerFE::class,'Login'])->name(('loginUser'));
+    Route::get('login',[UserControllerFE::class,'Login']);
     Route::get('showregister',[UserControllerFE::class,'showRegister'])->name(("ShowRegister"));
     Route::post('register',[UserControllerFE::class,'register'])->name(('register'));
     Route::get('vertified/{user}/{token}',[UserControllerFE::class,'vertified'])->name(("vertified"));   

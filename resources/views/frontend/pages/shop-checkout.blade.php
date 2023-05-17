@@ -13,10 +13,6 @@
                             <span>All departments</span>
                         </div>
                         <ul ng-repeat="cat in categories" ng-if="cat.parent_id==0">
-                            <li>
-                                <a href>@{{cat.name}}</a>
-                                <li ng-repeat="cate in categories" ng-if="cate.parent_id==cat.id"><a href="/product?cateID=@{{cate.id}}" ng-click="cateID(cate.id)"> -- @{{cate.name}}</a></li>
-                            </li>
                         </ul>
                     </div>
                 </div>
@@ -45,17 +41,15 @@
     <!-- Hero Section End -->
 
     <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="/img/product/banner.jpg">
+    <section>
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <div class="breadcrumb__text">
-                        <h2>Contact Us</h2>
-                        <div class="breadcrumb__option">
-                            <a href="./index.html">Home</a>
-                            <span>Contact Us</span>
+                        <h2>Check out</h2>
+                        <div class="">
+                            <a href="{{route('index')}}">Home</a>
+                            <span>Check out</span>
                         </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -73,7 +67,7 @@
             </div>
             <div class="checkout__form">
                 <h4>Billing Details</h4>
-                <form action="/save-checkout-cus" method="post">
+                <form action="{{ url('save-checkout-cus') }}" method="post">
                 {{ csrf_field() }}
                     <div class="row">
                         <form action="">
@@ -113,34 +107,18 @@
                             <div class="col-lg-6 col-md-6">
                                 <div class="checkout__order">
                                     <h4>Your Order</h4>
-                                    <?php 
-                                        //$content= Cart::content();      
-                                    ?>
+                                    
                                     <div class="checkout__order__products">Products <span>Total</span></div>
                                     <ul>
-                                    @foreach($content as $v_content)
-                                    <?php
-                                        //Cart::setTax($v_content->rowId, 0);
-                                    ?>
-                                        <li>{{$v_content->name}}<span>
-                                                                        <?php
-                                                                            $subtotal=$v_content->price*$v_content->qty;
-                                                                            echo number_format($subtotal).'đ';
-                                                                        ?>
-                                                                </span></li>
-                                    @endforeach
+                                        @foreach($details as $key => $detail)
+                                        <li>
+                                            {{$detail->product->name}}<span>{{number_format($detail->product->price*$detail->qty)}}</span>
+                                        </li>
+                                        @endforeach
                                     </ul>
-                                    <div class="checkout__order__subtotal">Subtotal <span>{{Cart::subtotal().'đ'}}</span></div>
-                                    <div class="checkout__order__total">Total <span>{{Cart::total().'đ'}}</span></div>
-                                    <!-- <div class="checkout__input__checkbox">
-                                        <label for="acc-or">
-                                            Create an account?
-                                            <input type="checkbox" id="acc-or">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adip elit, sed do eiusmod tempor incididunt
-                                        ut labore et dolore magna aliqua.</p>
+                                    <div class="checkout__order__subtotal">Subtotal <span>{{number_format($order->sub_total)}} VND</span></div>
+                                    <div class="checkout__order__total">Total <span>{{number_format($order->total)}} VND</span></div>
+                        
                                     <div class="checkout__input__checkbox">
                                         <label for="payment">
                                             Check Payment
@@ -154,7 +132,7 @@
                                             <input type="checkbox" id="paypal">
                                             <span class="checkmark"></span>
                                         </label>
-                                    </div> -->
+                                    </div>
                                     <button type="submit" value="gửi" name="sendorder" class="site-btn">PLACE ORDER</button>
                                 </div>
                             </div>
