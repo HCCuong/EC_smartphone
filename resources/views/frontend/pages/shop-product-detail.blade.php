@@ -38,13 +38,14 @@
                         </div>
                     </div>
                     <!-- <div class="hero__item set-bg" data-setbg="{{('public/frontend/img/hero/banner-1.jpg')}}"> -->
-                    <!--<div class="hero__item set-bg" data-setbg="../{{$ur}}public/frontend/{{$banner[2]->url}}">
+                    <div class="hero__item set-bg" data-setbg="../../public/frontend/{{$banner[2]->url}}">
                         <div class="hero__text">
-                            <p>Free Pickup and Delivery Available</p>
+                            <!--<span>FRUIT FRESH</span>
+                            <h2>Vegetable <br />100% Organic</h2>
+                            <p>Free Pickup and Delivery Available</p>-->
                             <a href="{{ url('/product') }}" class="primary-btn">SHOP NOW</a>
                         </div>
                     </div>
--->
                 </div>
             </div>
         </div>
@@ -52,30 +53,26 @@
     <!-- Hero Section End -->
 
     <!-- Breadcrumb Section Begin -->
-    <!--<section class="breadcrumb-section set-bg" data-setbg="../{{$ur}}public/frontend/img/product/banner.jpg">
+    <section>
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <div class="breadcrumb__text">
-                        <h2>Organi Product Detail</h2>
-                        <div class="breadcrumb__option">
+                        <h2>Product Detail</h2>
+                        <div class="">
                             <a href="{{route('index')}}">Home</a>
-                            <a href="{{route('product')}}">Product</a>
                             <span>Product Detail</span>
                         </div>
-                    </div>
                 </div>
             </div>
         </div>
     </section>
--->
     <!-- Breadcrumb Section End -->
 
     <!-- Product Details Section Begin -->
     <section class="product-details spad">
         <div class="container">
             <div class="row">
-                <div class="col-lg-6 col-md-6">
+                <div class="col-lg-5 col-md-5">
                     <div class="product__details__pic">
                         <div class="product__details__pic__item">
                             <img class="product__details__pic__item--large"
@@ -99,28 +96,33 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-6">
+                <div class="col-lg-7 col-md-7">
                     <div class="product__details__text">
-                        <h3>{{$product->name}}</h3>
-                        <div class="product__details__rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-half-o"></i>
-                            <span>(18 reviews)</span>
-                        </div>
-                        <div class="product__details__price">{{number_format($product->price)}} VND</div>
-                        <p>{{$product->r_intro}}</p>
-                        <div class="product__details__quantity mt-1">
-                            <div class="quantity">
-                                <div class="pro-qty">
-                                    <input type="text" value="1">
+                        <form action="{{ url('addtocart') }}" method="post">
+                            @csrf
+                            <input type="hidden" name="product_id" value="{{$product->id}}">
+                            <h3>{{$product->name}}</h3>
+                            <h5>{{$product->category->name}}</h5><br>
+                            <div class="product__details__rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star-half-o"></i>
+                                <span>(18 reviews)</span>
+                            </div>
+                            <div class="product__details__price">{{number_format($product->price)}} VND</div>
+                            <p>{{$product->r_intro}}</p>
+                            <div class="product__details__quantity mt-1">
+                                <div class="quantity">
+                                    <div class="pro-qty">
+                                        <input name="qty" type="text" value="1" min="1" max="5">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <a href="#" class="primary-btn">ADD TO CARD</a>
-                        <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
+                            <button type="submit" class="primary-btn">ADD TO CARD</button>
+                            <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
+                        </form>
                         <ul>
                             <li>
                                 <div class="row">

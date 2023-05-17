@@ -48,10 +48,12 @@ Route::prefix('/')->group(function (){
 
     // Cart
     Route::get('cart',[CartController::class,'cart'])->name('cart');
+    Route::post('addtocart',[CartController::class,'addToCart'])->name('addtocart');
     Route::post('saveCart',[CartController::class,'save_cart']);
     Route::get('showcart',[CartController::class,'show_cart']);
-    Route::get('delete-to-cart/{rowId}',[CartController::class,'delete_to_cart']);
-    Route::post('updateQty',[CartController::class,'update_cart_qty']);
+    Route::get('delete-to-cart',[CartController::class,'delete_to_cart']);
+    Route::DELETE('delete-to-cart',[CartController::class,'delete_to_cart']);
+    Route::post('updateQty/{orderdetail}',[CartController::class,'update_cart_qty']);
     //checkout
     Route::get('check-login-checkout',[CheckoutController::class,'check_login_checkout']);
     Route::post('save-checkout-cus',[CheckoutController::class,'save_checkout_cus']);

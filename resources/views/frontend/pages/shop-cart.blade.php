@@ -87,13 +87,12 @@
                                             {{number_format($detail->product->price)}}
                                         </td>
                                         <td class="shoping__cart__quantity">
-                                            <form action="{{ url('updateQty') }}" method="post" >
-                                                {{ csrf_field() }}
+                                            <form action="{{ url('updateQty/`$detail->id`') }}" method="post" >
+                                                @csrf
                                                 <div class="quantity">
                                                     <div class="pro-qty">
                                                         <input type="text" name="quantity_cart" value="{{$detail->qty}}">  
                                                     </div>
-                                                    <input type="hidden" name="rowId_cart" value="{{$detail->rowId}}">
                                                     <button type="submit" name="update_qty" value="cập nhật" class="primary-btn">Update</button>
                                                 </div>
                                             </form>
@@ -102,7 +101,11 @@
                                             {{number_format($detail->product->price*$detail->qty)}}
                                         </td>
                                         <td class="shoping__cart__item__close">
-                                            <span class="icon_close"></span>
+                                            <form action="{{ url('delete-to-cart') }}" method="delete">
+                                                @csrf
+                                                <input type="hidden" name="id" value="{{$detail->id}}">
+                                                <button type="submit" class="btn btn-danger btn-sm" href=""><span class="icon_close"></span></button>   
+                                            </form>
                                         </td>
                                     </tr>                              
                                 @endforeach
@@ -192,10 +195,5 @@
             </div>
         </div>
     </section>
-
-    
-
-
-    
 
     @endsection

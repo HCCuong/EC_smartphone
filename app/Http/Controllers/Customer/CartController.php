@@ -9,9 +9,11 @@ use App\Http\Services\Order\OrderDetailService;
 use App\Http\Services\Category\CategoryService;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Http\JsonResponse;
 use DB;
 #use Session;
 use App\Http\Requests;
+use App\Models\OrderDetail;
 use Illuminate\Support\Facades\Redirect;
 use Cart;
 #session_start();
@@ -67,19 +69,36 @@ class CartController extends Controller
         return Redirect::to('showcart');
     }
 
-    public function update_cart_qty(Request $request){
-        $rowId=$request->rowId_cart;
-        $quantity=$request->quantity_cart;
-        // if($quantity==0){
-        //     Cart::update($rowId,0);
-        //     return Redirect::to('showcart');
-        // }
-        Cart::update($rowId, $quantity);
-        return Redirect::to('showcart');
+    public function update_cart_qty(OrderDetail $detail, Request $request){
+        //dd($request);
+        $result = $this->orderDetailService->update($detail, $request);
+        if($result) return redirect('cart');
+        return redirect()->back();
     }
 
-    public function delete_to_cart($rowId){
-        Cart::update($rowId,0);
-        return view('frontend.pages.shop-cart');
+    public function delete_to_cart(Request $request){
+        $result = $this->orderDetailService->delete($request);
+        if($result){
+            return redirect('cart');
+        }
+        return redirect()->back();
     }
+
+    public function addToCart(Request $request){
+        if(Session::has('LoginID')){
+            $id = Session::get('LoginID');
+            if(!Session::has('orderID')){
+                $order = $this->orderService->getOrderByUser($id);
+                session()->put('orderID',$order->id);
+            }
+            $o_id = Session::get('orderID');
+            $result = $this->orderDetailService->create($o_id, $request);
+            if($result) return redirect('cart');
+            return redirect()->back();
+        }
+        else{
+            return redirect("showlogin");
+        }      
+    }
+
 }
