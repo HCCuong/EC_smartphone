@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Services\Order\OrderService;
 use App\Http\Services\Order\OrderDetailService;
 use App\Http\Services\Category\CategoryService;
+use App\Http\Services\Banner\BannerService;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\JsonResponse;
@@ -23,10 +24,13 @@ class CartController extends Controller
     protected $orderService;
     protected $orderDetailService;
     protected $categoryService;
-    public function __construct(OrderService $orderService, OrderDetailService $orderDetailService, CategoryService $categoryService){
+    protected $bannerService;
+    public function __construct(OrderService $orderService, OrderDetailService $orderDetailService, CategoryService $categoryService, 
+    BannerService $bannerService){
         $this->orderService = $orderService;
         $this->orderDetailService = $orderDetailService;
         $this->categoryService = $categoryService;
+        $this->bannerService = $bannerService;
     }
     public function cart(){
         if(Session::has('LoginID')){
@@ -38,6 +42,7 @@ class CartController extends Controller
                 'order'=>$order,
                 'details'=> $this->orderDetailService->get($order->id),
                 'categories'=>$this->categoryService->getAll(),
+                'banner'=>$this->bannerService->getAll(),
                 'ur'=>'',
             ]); 
         }
@@ -69,9 +74,9 @@ class CartController extends Controller
         return Redirect::to('showcart');
     }
 
-    public function update_cart_qty(OrderDetail $detail, Request $request){
-        //dd($request);
-        $result = $this->orderDetailService->update($detail, $request);
+    public function update_cart_qty(Request $request){
+        //dd($request->quantity);
+        $result = $this->orderDetailService->update($request);
         if($result) return redirect('cart');
         return redirect()->back();
     }

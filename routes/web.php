@@ -53,7 +53,7 @@ Route::prefix('/')->group(function (){
     Route::get('showcart',[CartController::class,'show_cart']);
     Route::get('delete-to-cart',[CartController::class,'delete_to_cart']);
     Route::DELETE('delete-to-cart',[CartController::class,'delete_to_cart']);
-    Route::post('updateQty/{orderdetail}',[CartController::class,'update_cart_qty']);
+    Route::post('updateQty',[CartController::class,'update_cart_qty']);
     //checkout
     Route::get('check-login-checkout',[CheckoutController::class,'check_login_checkout']);
     Route::post('save-checkout-cus',[CheckoutController::class,'save_checkout_cus']);

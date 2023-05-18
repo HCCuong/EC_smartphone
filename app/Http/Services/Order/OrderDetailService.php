@@ -22,11 +22,15 @@ class OrderDetailService
         return true;
     }
 
-    public function update($detail, $request){
+    public function update($request){
         try {
-            $detail->fill($request->input());
-            $detail->save();
-            Session::flash('success', 'Câp nhật số lượng thành công.');
+            $detail = OrderDetail::find($request->id);
+            $detail->qty = $request->quantity;
+            $rs = $detail->save();
+            if($rs){
+                Session::flash('success', 'Câp nhật số lượng thành công.');
+                return true;
+            }          
         } catch (\Exception $err){
             Session::flash('error', 'Cập nhật số lượng thất bại !');
             \Log::info($err->getMessage());

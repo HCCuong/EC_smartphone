@@ -66,6 +66,7 @@
                 </div>
             </div>
             <div class="checkout__form">
+                <?php $total = 0; ?>
                 <h4>Billing Details</h4>
                 <form action="{{ url('save-checkout-cus') }}" method="post">
                 {{ csrf_field() }}
@@ -111,13 +112,14 @@
                                     <div class="checkout__order__products">Products <span>Total</span></div>
                                     <ul>
                                         @foreach($details as $key => $detail)
+                                        <?php $total += ($detail->product->price * $detail->qty); ?>
                                         <li>
                                             {{$detail->product->name}}<span>{{number_format($detail->product->price*$detail->qty)}}</span>
                                         </li>
                                         @endforeach
                                     </ul>
-                                    <div class="checkout__order__subtotal">Subtotal <span>{{number_format($order->sub_total)}} VND</span></div>
-                                    <div class="checkout__order__total">Total <span>{{number_format($order->total)}} VND</span></div>
+                                    <div class="checkout__order__subtotal">Subtotal <span>{{number_format($total)}} VND</span></div>
+                                    <div class="checkout__order__total">Total <span>{{number_format($total)}} VND</span></div>
                         
                                     <div class="checkout__input__checkbox">
                                         <label for="payment">

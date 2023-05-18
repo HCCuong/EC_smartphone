@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Services\Order\OrderService;
 use App\Http\Services\Order\OrderDetailService;
 use App\Http\Services\Category\CategoryService;
+use App\Http\Requests\Order\CreateFormRequest;
 use Illuminate\Support\Facades\Session;
 use DB;
 use App\Http\Requests;
@@ -41,7 +42,7 @@ class CheckoutController extends Controller
             return redirect("showlogin");
         }
     }
-    public function save_checkout_cus(Request $request){
+    public function save_checkout_cus(CreateFormRequest $request){
         $data =array();
         $data['c_id']= $request->session()->get('LoginID');
         $data['qty']= Cart::count();

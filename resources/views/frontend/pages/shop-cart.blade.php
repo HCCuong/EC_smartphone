@@ -38,6 +38,15 @@
                             </div>
                         </div>
                     </div>
+                    <!-- <div class="hero__item set-bg" data-setbg="{{('public/frontend/img/hero/banner-1.jpg')}}"> -->
+                    <div class="hero__item set-bg" data-setbg="../public/frontend/{{$banner[2]->url}}">
+                        <div class="hero__text">
+                            <!--<span>FRUIT FRESH</span>
+                            <h2>Vegetable <br />100% Organic</h2>
+                            <p>Free Pickup and Delivery Available</p>-->
+                            <a href="{{ url('/product') }}" class="primary-btn">SHOP NOW</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -62,6 +71,7 @@
 
     <!-- Shoping Cart Section Begin -->
     <section class="shoping-cart spad">
+        <?php $total = 0; ?>
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -77,7 +87,9 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                
                                 @foreach($details as $key => $detail)
+                                    <?php $total += ($detail->product->price * $detail->qty); ?>
                                     <tr>
                                         <td class="shoping__cart__item">
                                             <img src="https://cdn.tgdd.vn/Products/Images/42/269831/Xiaomi-redmi-note-11-black-600x600.jpeg" width="100px" height="100px" alt="">
@@ -87,11 +99,12 @@
                                             {{number_format($detail->product->price)}}
                                         </td>
                                         <td class="shoping__cart__quantity">
-                                            <form action="{{ url('updateQty/`$detail->id`') }}" method="post" >
+                                            <form action="{{ url('updateQty') }}" method="post" >
                                                 @csrf
                                                 <div class="quantity">
                                                     <div class="pro-qty">
-                                                        <input type="text" name="quantity_cart" value="{{$detail->qty}}">  
+                                                        <input type="text" name="quantity" value="{{$detail->qty}}">
+                                                        <input type="hidden" name="id" value="{{$detail->id}}">  
                                                     </div>
                                                     <button type="submit" name="update_qty" value="cập nhật" class="primary-btn">Update</button>
                                                 </div>
@@ -137,8 +150,8 @@
                     <div class="shoping__checkout">
                         <h5>Cart Total</h5>
                         <ul>
-                            <li>Subtotal <span>{{number_format($order->sub_total)}} VND</span></li>
-                            <li>Total <span>{{number_format($order->total)}} VND</span></li>
+                            <li>Subtotal <span>{{number_format($total)}} VND</span></li>
+                            <li>Total <span>{{number_format($total)}} VND</span></li>
                         </ul>
                         <a href="{{ url('check-login-checkout') }}" class="primary-btn">PROCEED TO CHECKOUT</a>
                     </div>
