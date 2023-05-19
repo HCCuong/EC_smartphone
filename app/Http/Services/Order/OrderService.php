@@ -9,6 +9,28 @@ use Illuminate\Support\Str;
 
 class OrderService
 {
+
+    public function create($c_id){
+        try{
+             Order::create([
+                 'c_id' => (int) $c_id,
+                 'qty' => (int) 1,
+                 'sub_total' => (int) 0,
+                 'total' => (int) 0,
+                 'status' => (int) 1,
+                 'type' => (string) "cod",
+                 'note' => (string) "Không",
+                 'address' => (string) "",
+                 'phone' => (int) 0
+             ]);
+             Session::flash('success', 'Tạo sản phẩm thành công');
+        } catch (\Exception $err){
+             Session::flash('error', $err->getMessage());
+             return false;
+        }
+        return true;
+    }
+
     public function getAll()
     {
         return Order::with('user')->where('status', '=', 1)->orWhere('status', '=', 2)->paginate(100);
@@ -71,8 +93,6 @@ class OrderService
     }
 
     public function update($order, $request){
-        $isValidPrice = $this->isValidPrice($request);
-        if (!$isValidPrice) return false;
         //dd($request->all());
         try {
             $order->fill($request->input());
@@ -95,5 +115,28 @@ class OrderService
             return true;
         }
         return false;
+    }
+
+    public function checkout($request){
+        try {
+            $order = Order::find($request->id);
+            $order->total = $request->total;
+            $order->sub_total = $request->total;
+            $order->note = $request->note;
+            $order->phone = $request->phone;
+            $order->address = $request->address;
+            $order->status = (int) 2;
+            $order->type = (string) "cod";
+            $rs = $order->save();
+            if($rs){
+                Session::flash('success', 'Đặt hàng thành công.');
+                return true;
+            }          
+        } catch (\Exception $err){
+            Session::flash('error', 'Đặt hàng không thành công !');
+            \Log::info($err->getMessage());
+            return false;
+        }
+        return true;
     }
 }

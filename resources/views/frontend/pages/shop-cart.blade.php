@@ -76,6 +76,10 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="shoping__cart__table">
+                    @empty(Session::get('orderID')) 
+                        <center><h3>You have no products in your shopping cart</h3></center>                
+                    @endempty
+                    @if(Session::has('orderID'))                      
                         <table>
                             <thead>
                                 <tr>
@@ -87,7 +91,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                
                                 @foreach($details as $key => $detail)
                                     <?php $total += ($detail->product->price * $detail->qty); ?>
                                     <tr>
@@ -124,13 +127,15 @@
                                 @endforeach
                             </tbody>
                         </table>
+                    @endif
                     </div>
                 </div>
             </div>
+            <a href="{{ url('product') }}" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
+            @if(Session::has('orderID'))
             <div class="row">
                 <div class="col-lg-12">
                     <div class="shoping__cart__btns">
-                        <a href="{{ url('product') }}" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
                         <a href="#" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>
                             Upadate Cart</a>
                     </div>
@@ -157,6 +162,7 @@
                     </div>
                 </div>
             </div>
+            @endif
         </div>
     </section>
     <!-- Shoping Cart Section End -->

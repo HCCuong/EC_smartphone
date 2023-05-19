@@ -43,32 +43,10 @@ class CheckoutController extends Controller
         }
     }
     public function save_checkout_cus(CreateFormRequest $request){
-        $data =array();
-        $data['c_id']= $request->session()->get('LoginID');
-        $data['qty']= Cart::count();
-        $data['sub_total']= Cart::subtotal();
-        $data['total']= Cart::total();
-        $data['status']= '1';
-        $data['type']= 'cod';
-        $data['note']= $request->shipping_note;
-        $data['address']= $request->shipping_address;
-        $data['phone']= $request->shipping_phone;
-        $data['name']= $request->shipping_name;
-
-        $order_id= DB::table('orders')->insertGetId($data);
-
-        $content= Cart::content(); 
-        foreach ($content as $v_content) {
-            $data2 =array();
-            $data2['pro_id']= $v_content->id;
-            $data2['qty']= $v_content->qty;
-            $data2['o_id']= $order_id;
-            DB::table('order_details')->insertGetId($data2);
-          }
-        
-        Cart::destroy();
-        Session::put('order_id',$order_id);
-        return redirect('/home');
+        //dd($request->input());
+        $result = $this->orderService->checkout($request);
+        if($result) return redirect('cart');
+        return redirect()->back();
     }
     public function check_login_checkout(Request $request){
 

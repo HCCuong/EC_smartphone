@@ -157,6 +157,7 @@ class UserControllerFE extends Controller
             Auth::guard('web')->logout();
             Session::pull('LoginID');
             Session::pull('name');
+            Session::pull('orderID');
 
             return redirect('/showlogin');
         }

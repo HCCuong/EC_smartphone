@@ -14,6 +14,7 @@ use Illuminate\Http\JsonResponse;
 use DB;
 #use Session;
 use App\Http\Requests;
+use App\Models\Order;
 use App\Models\OrderDetail;
 use Illuminate\Support\Facades\Redirect;
 use Cart;
@@ -37,14 +38,26 @@ class CartController extends Controller
             $id = Session::get('LoginID');
             $order = $this->orderService->getOrderByUser($id);
             //dd($order->id);
-            session()->put('orderID',$order->id); 
-            return view('frontend.pages.shop-cart',[
-                'order'=>$order,
-                'details'=> $this->orderDetailService->get($order->id),
-                'categories'=>$this->categoryService->getAll(),
-                'banner'=>$this->bannerService->getAll(),
-                'ur'=>'',
-            ]); 
+            if($order){
+                session()->put('orderID',$order->id);
+                return view('frontend.pages.shop-cart',[
+                    'order'=>$order,
+                    'details'=> $this->orderDetailService->get($order->id),
+                    'categories'=>$this->categoryService->getAll(),
+                    'banner'=>$this->bannerService->getAll(),
+                    'ur'=>'',
+                ]);
+            } else {
+                $orders = [];
+                $details = [];
+                return view('frontend.pages.shop-cart',[
+                    'categories'=>$this->categoryService->getAll(),
+                    'banner'=>$this->bannerService->getAll(),
+                    'ur'=>'',
+                    'order'=>$orders,
+                    'details'=> $details,
+                ]);
+            }           
         }
         else{
             return redirect("showlogin");
@@ -94,7 +107,13 @@ class CartController extends Controller
             $id = Session::get('LoginID');
             if(!Session::has('orderID')){
                 $order = $this->orderService->getOrderByUser($id);
-                session()->put('orderID',$order->id);
+                if($order){
+                    session()->put('orderID',$order->id);
+                } else {
+                    $this->orderService->create($id);
+                    $order1 = $this->orderService->getOrderByUser($id);
+                    session()->put('orderID',$order1->id);
+                }
             }
             $o_id = Session::get('orderID');
             $result = $this->orderDetailService->create($o_id, $request);

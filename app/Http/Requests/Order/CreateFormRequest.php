@@ -24,19 +24,19 @@ class CreateFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'shipping_name' => 'required',
-            'shipping_address' => 'required',
-            'shipping_phone' => 'required',
-            'shipping_mail' => 'required',
+            'fullname' => 'required',
+            'address' => 'required',
+            'phone' => 'required',
+            'email' => 'required',
         ];
     }
 
     public function messages(){
         return [
-            'shipping_name.required' => 'Vui lòng nhập tên khách hàng',
-            'shipping_address.required' => 'Vui lòng nhập địa chỉ giao hàng',
-            'shipping_phone.required' => 'Vui lòng nhập số điện thoại',
-            'shipping_mail.required' => 'Vui lòng nhập địa chỉ email',
+            'fullname.required' => 'Vui lòng nhập tên khách hàng',
+            'address.required' => 'Vui lòng nhập địa chỉ giao hàng',
+            'phone.required' => 'Vui lòng nhập số điện thoại',
+            'email.required' => 'Vui lòng nhập địa chỉ email',
         ];
     }
 }

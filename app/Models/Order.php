@@ -17,8 +17,7 @@ class Order extends Model
         'type',
         'note',
         'address',
-        'phone',
-        'pro_id'
+        'phone'
     ];
     public function user(): \Illuminate\Database\Eloquent\Relations\HasOne
     {

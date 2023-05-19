@@ -69,7 +69,7 @@
                 <?php $total = 0; ?>
                 <h4>Billing Details</h4>
                 <form action="{{ url('save-checkout-cus') }}" method="post">
-                {{ csrf_field() }}
+                    @csrf
                     <div class="row">
                         <form action="">
                             <div class="col-lg-6 col-md-6">
@@ -77,31 +77,31 @@
                                     <div class="col-lg-12">
                                         <div class="checkout__input">
                                             <p>Name<span>*</span></p>
-                                            <input type="text"  name="shipping_name">
+                                            <input type="text" name="fullname">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="checkout__input">
                                     <p>Address<span>*</span></p>
-                                    <input type="text" class="checkout__input__add" name="shipping_address">
+                                    <input type="text" class="checkout__input__add" name="address">
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="checkout__input">
                                             <p>Phone<span>*</span></p>
-                                            <input type="text"  name="shipping_phone">
+                                            <input type="text"  name="phone">
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="checkout__input">
                                             <p>Email</p>
-                                            <input type="text"  name="shipping_mail">
+                                            <input type="text"  name="email">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="checkout__input">
                                     <p>Order notes</p>
-                                    <input type="text"  name="shipping_note"
+                                    <input type="text"  name="note"
                                         placeholder="Notes about your order, e.g. special notes for delivery.">
                                 </div>
                             </div>
@@ -135,7 +135,9 @@
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
-                                    <button type="submit" value="gửi" name="sendorder" class="site-btn">PLACE ORDER</button>
+                                    <input type="hidden" name="total" value="{{$total}}">
+                                    <input type="hidden" name="id" value="{{Session::get('orderID')}}">
+                                    <button type="submit" class="site-btn">PLACE ORDER</button>
                                 </div>
                             </div>
                         </form>
