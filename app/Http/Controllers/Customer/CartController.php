@@ -37,6 +37,7 @@ class CartController extends Controller
         if(Session::has('LoginID')){
             $id = Session::get('LoginID');
             $order = $this->orderService->getOrderByUser($id);
+            $delivering = $this->orderService->getDelivering($id);
             //dd($order->id);
             if($order){
                 session()->put('orderID',$order->id);
@@ -45,17 +46,20 @@ class CartController extends Controller
                     'details'=> $this->orderDetailService->get($order->id),
                     'categories'=>$this->categoryService->getAll(),
                     'banner'=>$this->bannerService->getAll(),
+                    'deliverings'=>$delivering,
                     'ur'=>'',
                 ]);
             } else {
                 $orders = [];
                 $details = [];
+                $delivering = [];
                 return view('frontend.pages.shop-cart',[
                     'categories'=>$this->categoryService->getAll(),
                     'banner'=>$this->bannerService->getAll(),
                     'ur'=>'',
                     'order'=>$orders,
                     'details'=> $details,
+                    'deliverings'=>$delivering
                 ]);
             }           
         }

@@ -117,10 +117,10 @@
                                             {{number_format($detail->product->price*$detail->qty)}}
                                         </td>
                                         <td class="shoping__cart__item__close">
-                                            <form action="{{ url('delete-to-cart') }}" method="delete">
+                                            <form action="{{ url('delete-to-cart') }}" method="delete"  onsubmit="deleteProduct()">
                                                 @csrf
                                                 <input type="hidden" name="id" value="{{$detail->id}}">
-                                                <button type="submit" class="btn btn-danger btn-sm" href=""><span class="icon_close"></span></button>   
+                                                <button type="submit" class="btn btn-danger btn-sm"><span class="icon_close"></span></button>   
                                             </form>
                                         </td>
                                     </tr>                              
@@ -174,39 +174,38 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="shoping__cart__table">
+                        <h5>Order dilivering</h5>
+
                         <table>
                             <thead>
                                 <tr>
-                                    <th class="shoping__product">Order dilivering</th>
-                                    <th>Price</th>
-                                    <th>Quantity</th>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Address</th>
                                     <th>Total</th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach($deliverings as $key => $order)
                                 <tr>
-                                    <td class="shoping__cart__item">
-                                        <img src="https://cdn.tgdd.vn/Products/Images/42/269831/Xiaomi-redmi-note-11-black-600x600.jpeg" width="100px" height="100px" alt="">
-                                        <h5>Samsung S22 Utral Utral</h5>
+                                    <td>
+                                        {{$order->id}}
                                     </td>
-                                    <td class="shoping__cart__price">
-                                        $110.00
+                                    <td>
+                                        {{$order->user->name}}
                                     </td>
-                                    <td class="shoping__cart__quantity">
-                                        <div class="quantity">
-                                            <div class="pro-qty">
-                                                <input type="text" value="1">
-                                            </div>
-                                        </div>
+                                    <td>
+                                        {{$order->address}}
                                     </td>
-                                    <td class="shoping__cart__total">
-                                        $110.00
+                                    <td>
+                                        {{number_format($order->total)}} VND
                                     </td>
-                                    <td class="shoping__cart__item__close">
+                                    <td>
                                         <span class="icon_close"></span>
                                     </td>
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -214,5 +213,11 @@
             </div>
         </div>
     </section>
+
+<script>
+    function deleteProduct() {
+        confirm("Xóa sẽ không thể khôi phục - Bạn có muốn xóa không ?");
+    }
+</script>
 
     @endsection

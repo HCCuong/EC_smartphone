@@ -43,6 +43,11 @@ class OrderService
         return Order::with('user')->where('status','=', 3)->paginate(100);
     }
 
+    public function getDelivering($id)
+    {
+        return Order::with('user')->where('status', '=', 2)->Where('c_id', $id)->simplePaginate(9);
+    }
+
     //Lấy danh sách đơn hàng đã bị hủy
     public function getListCancel()
     {

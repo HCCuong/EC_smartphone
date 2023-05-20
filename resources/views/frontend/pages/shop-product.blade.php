@@ -32,21 +32,20 @@
     <!-- Hero Section End -->
 
     <!-- Breadcrumb Section Begin -->
-    <!--<section class="breadcrumb-section set-bg" data-setbg="img/product/banner.jpg">
+    <section>
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <div class="breadcrumb__text">
-                        <h2>Organi Shop</h2>
-                        <div class="breadcrumb__option">
+                        <h2>Product</h2>
+                        <div class="">
                             <a href="{{route('index')}}">Home</a>
-                            <span>Shop</span>
+                            <span>Product</span>
                         </div>
-                    </div>
                 </div>
             </div>
         </div>
-    </section>-->
+    </section>
+
     <!-- Breadcrumb Section End -->
 
     <!-- Product Section Begin -->
@@ -211,6 +210,11 @@
                     </div>
                     <div class="filter__item">
                         <div class="row">
+                            <div class="col-lg-5 col-md-4">
+                                <div class="filter__found">
+                                    <h6><span></span> Products found</h6>
+                                </div>
+                            </div>
                             <div class="col-lg-5 col-md-5">
                                 <div class="filter__sort">
                                     <span>Sort By: </span>
@@ -232,11 +236,6 @@
                                             <input type="radio" id="sort3" ng-click="getSort('name')">
                                         </label>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-5 col-md-4">
-                                <div class="filter__found">
-                                    <h6><span></span> Products found</h6>
                                 </div>
                             </div>                          
                         </div>
